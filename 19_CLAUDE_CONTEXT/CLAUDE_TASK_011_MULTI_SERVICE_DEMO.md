@@ -1,8 +1,14 @@
-# Claude Task 011 — Multi-Service SolarHub Demo
+# Claude Task 011 — Multi-Service SolarHub Demo Support
 
 ## Goal
 
-Help run the complete local SolarHub demo across all repositories and prepare fixes or instructions for Codex/GitHub.
+Prepare a multi-service local demo run package for Codex.
+
+## Access Boundary
+
+Claude does not directly access the user's local files in this workflow.
+
+Codex is the local-file executor. Claude should produce clear commands, troubleshooting paths, patch suggestions, and a handoff package Codex can run locally and then push/report through GitHub.
 
 ## Repositories
 
@@ -12,6 +18,10 @@ Help run the complete local SolarHub demo across all repositories and prepare fi
 - `neocell-platform`
 - `NeoHaven-repo-root`
 
+## GitHub Issue
+
+`NeoHaven-repo-root` Issue #5
+
 ## Target ports
 
 - NeoAgro API: `8000`
@@ -20,7 +30,7 @@ Help run the complete local SolarHub demo across all repositories and prepare fi
 - NeoCell API: `8300`
 - NOVA Command Center: `8400`
 
-## Commands
+## Commands Codex should run locally
 
 ### NeoAgro
 
@@ -93,11 +103,22 @@ http://localhost:8400
 - NOVA Core shows connected if health endpoint is running.
 - If a service fails, fallback mode still renders.
 
+## Claude Output Required
+
+Claude should provide Codex with:
+
+- exact run order
+- exact health checks
+- likely local environment errors
+- small fix patches if ports, CORS, env vars, or service fetches fail
+- screenshot checklist
+- final GitHub issue report template
+
 ## Handoff report
 
-Paste report into GitHub Issue #5 in `NeoHaven-repo-root`.
+Claude should instruct Codex to paste report into GitHub Issue #5 in `NeoHaven-repo-root`.
 
-Include:
+Report must include:
 
 - Which services started
 - Which ports worked
