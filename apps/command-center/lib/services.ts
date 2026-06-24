@@ -68,17 +68,29 @@ const fallbackServices: ServiceSnapshot[] = [
   },
 ];
 
-async function getJson(url: string) {
-  const response = await fetch(url, { next: { revalidate: 10 } });
-  if (!response.ok) throw new Error(`${url} returned ${response.status}`);
-  return response.json();
-}
-
 function envUrl(key: string, fallback: string) {
   return process.env[key] || fallback;
 }
 
+function shouldUseRemoteServices() {
+  return process.env.CI !== 'true' && process.env.NEXT_PUBLIC_DEMO_MODE !== 'true';
+}
+
+async function getJson(url: string) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 1200);
+  try {
+    const response = await fetch(url, { signal: controller.signal, cache: 'no-store' });
+    if (!response.ok) throw new Error(`${url} returned ${response.status}`);
+    return response.json();
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
 export async function getServiceSnapshots(): Promise<ServiceSnapshot[]> {
+  if (!shouldUseRemoteServices()) return fallbackServices;
+
   const configs = [
     { id: 'neoagro', url: envUrl('NEXT_PUBLIC_NEOAGRO_API_URL', 'http://localhost:8000') },
     { id: 'neogrid', url: envUrl('NEXT_PUBLIC_NEOGRID_API_URL', 'http://localhost:8200') },
@@ -108,9 +120,7 @@ export async function getServiceSnapshots(): Promise<ServiceSnapshot[]> {
   let core = coreFallback;
   try {
     const health = await getJson(`${coreUrl}/health`);
-    if (health.status === 'ok') {
-      core = { ...coreFallback, status: 'connected', endpoint: coreUrl };
-    }
+    if (health.status === 'ok') core = { ...coreFallback, status: 'connected', endpoint: coreUrl };
   } catch {
     core = coreFallback;
   }
