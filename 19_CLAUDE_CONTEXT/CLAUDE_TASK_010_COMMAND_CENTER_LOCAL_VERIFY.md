@@ -1,18 +1,24 @@
-# Claude Task 010 — NOVA Command Center Local Verification
+# Claude Task 010 — NOVA Command Center Local Verification Support
 
 ## Goal
 
-Help verify NOVA Command Center locally and prepare any fixes for Codex/GitHub.
+Prepare an implementation and verification package that Codex can run locally for NOVA Command Center.
+
+## Access Boundary
+
+Claude does not directly access the user's local files in this workflow.
+
+Codex is the local-file executor. Claude should produce precise instructions, patch suggestions, and fallback fixes that Codex can apply locally and push to GitHub.
 
 ## Repository
 
 `wisemaiarservices-debug/NeoHaven-repo-root`
 
-## Local path
+## GitHub Issue
 
-Use the user's local clone if available. If not, clone fresh.
+`NeoHaven-repo-root` Issue #4
 
-## Required commands
+## Codex local verification commands
 
 ```powershell
 cd apps/command-center
@@ -37,18 +43,28 @@ http://localhost:8400
 - Cards appear for NOVA Core, NeoAgro, NeoGrid, NeoCell.
 - Fallback mode is visible when services are not running.
 
+## Claude Output Required
+
+Claude should provide Codex with:
+
+- exact commands to run
+- expected successful output
+- likely failure points
+- small patch recommendations if errors occur
+- exact files to inspect first
+
 ## If errors happen
 
 Do not rewrite the app.
 
-Fix the smallest files needed and provide:
+Provide the smallest possible fix package for Codex:
 
 - exact file paths
 - changed content
-- commands run
-- terminal output summary
+- commands Codex should run
+- terminal output Codex should paste
 - whether a PR should be opened
 
 ## Handoff report
 
-Paste the final report into GitHub Issue #4 in `NeoHaven-repo-root`.
+Claude should tell Codex to paste the final report into GitHub Issue #4 in `NeoHaven-repo-root`.
