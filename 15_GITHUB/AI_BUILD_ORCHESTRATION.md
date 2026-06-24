@@ -6,6 +6,32 @@ This document defines the fast-build operating system for NeoHaven AI Urban Labs
 
 The goal is to coordinate ChatGPT, Claude, Codex, local files, and GitHub without losing context or duplicating work.
 
+## Access Boundaries
+
+### ChatGPT
+
+Access level: GitHub connector and chat-provided content.
+
+ChatGPT does not directly access the user's local machine files. ChatGPT reviews work through GitHub issues, pull requests, commits, and pasted reports.
+
+### Claude
+
+Access level: GitHub context and chat-provided content.
+
+Claude does not directly access the user's local machine files in this workflow. Claude helps by producing implementation plans, full file contents, patches, prompts, and task packages that Codex can apply locally or in GitHub.
+
+### Codex
+
+Access level: local code environment plus GitHub.
+
+Codex is the agent that can work with the user's local files, run commands, test builds, capture local results, create branches, update files, and push changes to GitHub.
+
+### GitHub
+
+Access level: shared source of truth for ChatGPT, Claude, and Codex.
+
+Anything that must be reviewed by ChatGPT or reused by Claude/Codex should be committed to GitHub or pasted into a GitHub issue.
+
 ## Roles
 
 ### ChatGPT
@@ -28,19 +54,24 @@ Role: deep coding assistant and implementation planner.
 Responsibilities:
 
 - Work from structured task prompts.
-- Edit local files when connected to the local workspace.
-- Produce complete files, patches, implementation notes, and test plans.
+- Read GitHub context and produce implementation-ready files or patches.
+- Produce complete file contents, patch plans, implementation notes, and test plans.
 - Keep outputs compatible with the GitHub source of truth.
 - Write clear handoff reports for ChatGPT and Codex.
+- Provide files that Codex can apply locally and push to GitHub.
+
+Claude should not be treated as the local-file executor. Codex is the local executor.
 
 ### Codex
 
-Role: repository implementation and verification agent.
+Role: local repository implementation and verification agent.
 
 Responsibilities:
 
 - Clone or open repositories.
-- Run installs, tests, builds, and smoke checks.
+- Access local files.
+- Apply Claude-provided files and patches.
+- Run installs, tests, builds, smoke checks, and local demos.
 - Fix code errors.
 - Open PRs.
 - Paste exact reports into GitHub issues.
@@ -48,6 +79,8 @@ Responsibilities:
 ### Local Code Environment
 
 Role: workspace with access to the user's machine files.
+
+Primary executor: Codex.
 
 Responsibilities:
 
@@ -64,21 +97,22 @@ Role: source of truth.
 Responsibilities:
 
 - Store code, docs, prompts, issues, PRs, and validation reports.
-- Enable ChatGPT to inspect work reliably.
+- Enable ChatGPT and Claude to inspect work reliably.
 - Preserve stable history across accounts and tools.
 
 ## Golden Rule
 
-If work is not in GitHub or pasted into a GitHub issue, ChatGPT may not be able to access it reliably.
+If work is not in GitHub or pasted into a GitHub issue, ChatGPT and Claude may not be able to access it reliably.
 
 ## Standard Flow
 
 1. ChatGPT creates task package in GitHub.
-2. Claude receives task prompt and produces files or implementation plan.
-3. Codex implements or verifies in repo/local environment.
-4. Codex opens PR or comments report on issue.
-5. ChatGPT reviews GitHub result.
-6. ChatGPT merges, fixes, or creates the next task.
+2. Claude receives task prompt and produces files, patches, or implementation plan.
+3. Codex applies the files/patches locally or directly in the repo.
+4. Codex runs tests, builds, and local verification.
+5. Codex opens PR or comments report on issue.
+6. ChatGPT reviews GitHub result.
+7. ChatGPT merges, fixes, or creates the next task.
 
 ## Handoff Format
 
@@ -117,6 +151,7 @@ Every Claude or Codex task must end with:
 
 - Do not wait for perfect local file organization.
 - Build and validate through GitHub first.
-- Use local files only for running, screenshots, and videos.
+- Use local files only through Codex for running, screenshots, and videos.
+- Use Claude for planning, full-file generation, patch drafting, and coding assistance.
 - Prefer small PRs.
 - Keep all demos deterministic and able to run in fallback mode.
