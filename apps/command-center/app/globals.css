@@ -1,0 +1,45 @@
+:root {
+  color-scheme: dark;
+  --bg: #07111f;
+  --panel: rgba(16, 24, 39, 0.86);
+  --panel-2: rgba(22, 34, 53, 0.92);
+  --border: #2a3d55;
+  --text: #eef6ff;
+  --muted: #a8b6c8;
+  --green: #28c76f;
+  --blue: #3aa7ff;
+  --gold: #f6c445;
+  --red: #ff5c5c;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: radial-gradient(circle at 20% 0%, #12335a 0%, var(--bg) 42%, #050b14 100%);
+  color: var(--text);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+a { color: inherit; text-decoration: none; }
+.container { max-width: 1280px; margin: 0 auto; padding: 30px 20px 70px; }
+.nav { display: flex; justify-content: space-between; gap: 16px; align-items: center; margin-bottom: 36px; }
+.logo { font-weight: 900; letter-spacing: .12em; }
+.navlinks { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
+.badge { display: inline-flex; align-items: center; border: 1px solid var(--border); border-radius: 999px; padding: 7px 11px; color: var(--muted); font-size: 13px; background: rgba(255,255,255,.03); }
+.card { background: var(--panel); border: 1px solid var(--border); border-radius: 20px; padding: 18px; box-shadow: 0 18px 70px rgba(0,0,0,.26); }
+.hero { padding: 28px; }
+.kicker { color: var(--green); font-size: 12px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+h1 { font-size: clamp(38px, 5vw, 70px); line-height: .96; margin: 14px 0; max-width: 1000px; }
+h2 { margin: 0 0 10px; font-size: 21px; }
+h3 { margin: 0 0 8px; }
+p { color: var(--muted); line-height: 1.55; }
+.grid { display: grid; gap: 16px; margin-top: 16px; }
+.grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.value { font-size: 32px; font-weight: 900; margin-top: 8px; }
+.status-ok { color: var(--green); }
+.status-fallback { color: var(--gold); }
+.module-line { display: flex; justify-content: space-between; gap: 12px; border-top: 1px solid var(--border); padding-top: 12px; margin-top: 12px; }
+.timeline { display: grid; gap: 10px; }
+.timeline-item { padding: 12px; border: 1px solid var(--border); border-radius: 14px; background: rgba(255,255,255,.03); }
+.recommendation { border-left: 4px solid var(--gold); }
+@media (max-width: 980px) { .grid-4, .grid-3, .grid-2 { grid-template-columns: 1fr; } .nav { align-items: flex-start; flex-direction: column; } }
