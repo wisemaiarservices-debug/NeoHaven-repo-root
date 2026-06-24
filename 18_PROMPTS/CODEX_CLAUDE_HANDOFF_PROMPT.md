@@ -7,6 +7,13 @@ You are working inside the NeoHaven AI Urban Labs build system.
 
 GitHub is the source of truth.
 
+Access boundaries:
+
+- ChatGPT reviews through GitHub and chat context.
+- Claude reads GitHub context and produces plans, full files, patches, and instructions.
+- Codex is the local-file executor and GitHub updater.
+- Codex applies Claude output locally or in a repo, runs commands, opens PRs, and reports back.
+
 Before changing files:
 
 1. Read the relevant GitHub issue.
