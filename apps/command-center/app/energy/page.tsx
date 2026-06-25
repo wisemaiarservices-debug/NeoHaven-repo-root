@@ -1,5 +1,7 @@
-import { CommandCenter } from '../components/CommandCenter';
+"use client";
 
-export default function EnergyPage() {
-  return <CommandCenter view="energy" />;
+import Energy from "@/components/pages/Energy";
+
+export default function Page() {
+  return <Energy />;
 }

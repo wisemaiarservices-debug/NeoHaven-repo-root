@@ -1,5 +1,7 @@
-import { CommandCenter } from '../components/CommandCenter';
+"use client";
 
-export default function AgriculturePage() {
-  return <CommandCenter view="agriculture" />;
+import Agriculture from "@/components/pages/Agriculture";
+
+export default function Page() {
+  return <Agriculture />;
 }
