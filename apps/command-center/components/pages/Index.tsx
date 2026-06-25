@@ -9,6 +9,7 @@ import { DigitalTwinPanel } from "@/components/nova/DigitalTwinPanel";
 import { KnowledgeGraphPanel } from "@/components/nova/KnowledgeGraphPanel";
 import { RecommendationsPanel } from "@/components/nova/RecommendationsPanel";
 import { ImpactSummary } from "@/components/nova/ImpactSummary";
+import { ProductStatusPanel } from "@/components/nova/ProductStatusPanel";
 import { kpis } from "@/data/mockData";
 
 const Index = () => (
@@ -23,6 +24,8 @@ const Index = () => (
           ))}
         </div>
       </section>
+
+      <ProductStatusPanel />
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <NeoAgroPanel />

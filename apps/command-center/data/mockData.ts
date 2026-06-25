@@ -16,6 +16,73 @@ export const services = [
   { id: "cell", name: "NeoCell", status: "degraded", latencyMs: 218 },
 ] as const;
 
+export const productModules = [
+  {
+    name: "NOVA Command Center",
+    product: "NOVA OS",
+    status: "ready",
+    summary: "Real Lovable Command Center source wired in PR #14.",
+    href: "/",
+    pr: "https://github.com/wisemaiarservices-debug/NeoHaven-repo-root/pull/14",
+  },
+  {
+    name: "NOVA Agriculture / NeoAgro",
+    product: "Agriculture",
+    status: "ready when PR #15 merges",
+    summary: "Lovable NeoAgro agrivoltaic UI wired with NOVA Core AI v0 preserved.",
+    href: "http://localhost:8506/dashboard",
+    pr: "https://github.com/wisemaiarservices-debug/neoagro-platform/pull/15",
+  },
+  {
+    name: "NOVA Energy / NeoGrid",
+    product: "Energy",
+    status: "ready when PR #3 merges",
+    summary: "Lovable NeoGrid energy UI wired with deterministic fallback API compatibility.",
+    href: "http://localhost:8504",
+    pr: "https://github.com/wisemaiarservices-debug/neogrid-platform/pull/3",
+  },
+  {
+    name: "NOVA Infrastructure / NeoCell",
+    product: "Infrastructure",
+    status: "API ready / UI pending",
+    summary: "Infrastructure API/spec layer is represented in Command Center; product UI source still pending.",
+    href: "/infrastructure",
+    pr: "",
+  },
+  {
+    name: "NOVA Core AI",
+    product: "Shared AI services",
+    status: "integrated",
+    summary: "Forecast, recommendation, simulation, and assistant explanation workflow visible.",
+    href: "/nova-core",
+    pr: "",
+  },
+  {
+    name: "Digital Twin",
+    product: "Shared twin layer",
+    status: "integrated",
+    summary: "Site context, asset graph, and operational chain remain available in the demo shell.",
+    href: "/digital-twin",
+    pr: "",
+  },
+  {
+    name: "Knowledge Graph",
+    product: "Shared intelligence layer",
+    status: "integrated",
+    summary: "Asset relationships and reasoning chain are visible for operator explanation.",
+    href: "/knowledge-graph",
+    pr: "",
+  },
+  {
+    name: "Impact Reports",
+    product: "Measurement layer",
+    status: "integrated",
+    summary: "Water, carbon, resilience, and yield-risk impact reporting remains available.",
+    href: "/impact",
+    pr: "",
+  },
+] as const;
+
 export const kpis = [
   { label: "Site Health", value: "94", unit: "%", delta: "+1.2", tone: "good" },
   { label: "Crop Health (NDVI)", value: "0.72", unit: "", delta: "+0.03", tone: "good" },
