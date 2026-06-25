@@ -1,5 +1,7 @@
-import { CommandCenter } from './components/CommandCenter';
+"use client";
 
-export default function HomePage() {
-  return <CommandCenter view="overview" />;
+import Index from "@/components/pages/Index";
+
+export default function Page() {
+  return <Index />;
 }

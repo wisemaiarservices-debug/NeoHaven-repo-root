@@ -1,5 +1,7 @@
-import { CommandCenter } from '../components/CommandCenter';
+"use client";
 
-export default function InfrastructurePage() {
-  return <CommandCenter view="infrastructure" />;
+import Infrastructure from "@/components/pages/Infrastructure";
+
+export default function Page() {
+  return <Infrastructure />;
 }
