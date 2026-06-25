@@ -41,8 +41,8 @@ export const navItems: NavItem[] = [
   { label: 'Agriculture / NeoAgro', href: '/agriculture', key: 'agriculture', eyebrow: 'Crop + Water' },
   { label: 'Energy / NeoGrid', href: '/energy', key: 'energy', eyebrow: 'Solar + Battery' },
   { label: 'Infrastructure / NeoCell', href: '/infrastructure', key: 'infrastructure', eyebrow: 'Edge + Sensors' },
-  { label: 'NOVA Core AI', href: '/ai', key: 'ai', eyebrow: 'Decision Layer' },
-  { label: 'Demo Script', href: '/demo-script', key: 'demo', eyebrow: 'Pitch Mode' },
+  { label: 'NOVA Core AI', href: '/nova-core', key: 'ai', eyebrow: 'Decision Layer' },
+  { label: 'Demo Script', href: '/walkthrough', key: 'demo', eyebrow: 'Pitch Mode' },
 ];
 
 export const serviceStatuses: ServiceStatus[] = [
