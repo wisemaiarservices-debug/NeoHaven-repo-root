@@ -3,6 +3,7 @@
 Date: 2026-06-25
 Repository: `wisemaiarservices-debug/NeoHaven-repo-root`
 Issue: #11
+PR: https://github.com/wisemaiarservices-debug/NeoHaven-repo-root/pull/12
 Target app: `apps/command-center`
 
 ## Objective
