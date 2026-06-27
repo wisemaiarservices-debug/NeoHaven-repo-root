@@ -4,7 +4,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 const steps = [
-  { t: "00:00", title: "Open Command Center", body: "Reviewer lands on Overview. Hero shows the SolarHub site, active heatwave scenario and service status chips. Anchor the story: 'This is the operating system for a real pilot site.'", to: "/" },
+  { t: "00:00", title: "Open Command Center", body: "Reviewer lands on Overview. Hero shows the active agrivoltaic site, heatwave scenario, and service status chips. Anchor the story: 'This is the operating system for a real pilot site.'", to: "/" },
   { t: "00:30", title: "Read the KPI strip",   body: "8 KPIs frame the state of the site at a glance: site health, crops, energy, carbon, resilience. Point at soil moisture & battery SOC trending down — the scenario tension.", to: "/" },
   { t: "01:00", title: "Drill into NeoAgro",   body: "Field zone matrix shows which crops are stressed. Recommendation: pre-irrigate Z-03/Z-08 before 11:00.", to: "/agriculture" },
   { t: "01:45", title: "Drill into NeoGrid",   body: "Solar/battery/demand chart. Recommendation: shift pump load into 12:00–14:00 surplus to lift self-consumption.", to: "/energy" },
@@ -18,7 +18,7 @@ const steps = [
 export default function DemoScript() {
   return (
     <AppShell>
-      <PageHeader module="Demo Script" title="5-minute pitch walkthrough" subtitle="Step-by-step narrative for mentors, partners and pilot operators. Each step links into the live prototype." />
+      <PageHeader module="Executive Walkthrough" title="5-minute operating narrative" subtitle="Step-by-step narrative for executives, partners, and pilot operators. Each step links into the operating view." />
       <ol className="space-y-2.5">
         {steps.map((s, i) => (
           <li key={i} className="glass-panel p-4 flex gap-4 items-start">

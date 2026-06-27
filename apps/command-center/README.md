@@ -1,6 +1,6 @@
 # NOVA Command Center
 
-GitHub-first SolarHub demo view for NOVA OS.
+Decision intelligence for sustainable infrastructure operations.
 
 ## Modules
 
@@ -32,4 +32,4 @@ NEXT_PUBLIC_NEOGRID_API_URL=http://localhost:8200
 NEXT_PUBLIC_NEOCELL_API_URL=http://localhost:8300
 ```
 
-The page renders with deterministic fallback data if services are offline.
+The page renders operational preview data when product services are offline.
