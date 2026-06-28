@@ -61,7 +61,7 @@ export const productModules = [
     name: "Digital Twin",
     product: "Shared twin layer",
     status: "integrated",
-    summary: "Site context, asset graph, and operational chain remain available in the demo shell.",
+    summary: "Site context, asset graph, and operational chain remain available in the command center.",
     href: "/digital-twin",
     pr: "",
   },
