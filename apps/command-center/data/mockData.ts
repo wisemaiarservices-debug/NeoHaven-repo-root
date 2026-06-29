@@ -1,7 +1,7 @@
-// Deterministic demo data for NOVA OS Command Center — SolarHub agrivoltaic site.
+// Scenario data for NOVA OS Command Center — agrivoltaic operations site.
 
 export const site = {
-  name: "SolarHub Agrivoltaic Demo Site",
+  name: "Agrivoltaic Operations Site",
   code: "NHV-SH-01",
   location: "Casablanca · Morocco",
   scenario: "Heatwave agrivoltaic optimization",
@@ -21,33 +21,33 @@ export const productModules = [
     name: "NOVA Command Center",
     product: "NOVA OS",
     status: "ready",
-    summary: "Real Lovable Command Center source wired in PR #14.",
+    summary: "Decision intelligence for sustainable infrastructure operations.",
     href: "/",
-    pr: "https://github.com/wisemaiarservices-debug/NeoHaven-repo-root/pull/14",
+    pr: "",
   },
   {
     name: "NOVA Agriculture / NeoAgro",
     product: "Agriculture",
     status: "ready",
-    summary: "Lovable NeoAgro agrivoltaic UI wired and merged with NOVA Core AI v0 preserved.",
+    summary: "Agrivoltaic intelligence for crop health, water efficiency, energy coordination, and impact reporting.",
     href: "http://localhost:3000/dashboard",
-    pr: "https://github.com/wisemaiarservices-debug/neoagro-platform/pull/15",
+    pr: "",
   },
   {
     name: "NOVA Energy / NeoGrid",
     product: "Energy",
     status: "ready",
-    summary: "Lovable NeoGrid energy UI wired and merged with deterministic fallback API compatibility.",
+    summary: "Energy intelligence for solar production, battery operations, grid coordination, carbon impact, and operator-approved optimization.",
     href: "http://localhost:8504",
-    pr: "https://github.com/wisemaiarservices-debug/neogrid-platform/pull/3",
+    pr: "",
   },
   {
     name: "NOVA Infrastructure / NeoCell",
     product: "Infrastructure",
     status: "ready",
-    summary: "Lovable NeoCell infrastructure UI wired and merged with API-ready fallback mode.",
+    summary: "AI-ready infrastructure readiness for gateways, sensors, power, water, edge compute, and field deployment planning.",
     href: "http://localhost:8507",
-    pr: "https://github.com/wisemaiarservices-debug/neocell-platform/pull/3",
+    pr: "",
   },
   {
     name: "NOVA Core AI",
@@ -61,7 +61,7 @@ export const productModules = [
     name: "Digital Twin",
     product: "Shared twin layer",
     status: "integrated",
-    summary: "Site context, asset graph, and operational chain remain available in the demo shell.",
+    summary: "Site context, asset graph, and operational chain remain available in the command center.",
     href: "/digital-twin",
     pr: "",
   },
@@ -105,7 +105,7 @@ export const fieldZones = [
   { id: "Z-08", crop: "Strawberry", ndvi: 0.66, moisture: 24, status: "Stress",   irrigationL: 700 },
 ];
 
-// 24h solar production + battery curves (deterministic).
+// 24h solar production + battery curves.
 export const solarSeries = [
   { t: "00", solar:  0, battery: 72, demand: 14 },
   { t: "02", solar:  0, battery: 64, demand: 12 },

@@ -45,16 +45,16 @@ function Shell({ children, view }: { children: React.ReactNode; view: ViewKey })
           ))}
         </nav>
         <div className="nova-sidebar-card">
-          <span className="micro">Demo Integrity</span>
-          <strong>Fallback safe</strong>
-          <p>Renders without external services. Live APIs can connect when available.</p>
+          <span className="micro">Operational Preview</span>
+          <strong>Connected / Standby Mode</strong>
+          <p>Renders a reliable operations view while product services connect when available.</p>
         </div>
       </aside>
 
       <div className="nova-main">
         <header className="nova-topbar">
           <div>
-            <span className="micro">SolarHub Agrivoltaic Demo Site</span>
+            <span className="micro">Agrivoltaic Operations Site</span>
             <strong>Heatwave agrivoltaic optimization</strong>
           </div>
           <div className="status-cluster">
@@ -81,12 +81,12 @@ function Hero() {
           AI recommendations, scenario simulation, and impact reporting.
         </p>
         <div className="hero-actions">
-          <span className="primary-pill">Pitch-ready command center</span>
+          <span className="primary-pill">Executive-ready command center</span>
           <span className="secondary-pill">No autonomous physical control</span>
         </div>
       </article>
       <article className="site-map glass-panel">
-        <div className="micro">Live Demo Story</div>
+        <div className="micro">Operational Story</div>
         <div className="site-grid">
           <span className="node solar">Solar Array</span>
           <span className="node battery">Battery</span>
@@ -129,7 +129,7 @@ function ServiceGrid() {
           <p>{service.description}</p>
           <div className="module-footer">
             <span>{service.health}</span>
-            <span>Demo data deterministic</span>
+            <span>Operational preview data</span>
           </div>
         </article>
       ))}
@@ -320,8 +320,8 @@ function ImpactSummary() {
 function DemoScript() {
   return (
     <section className="glass-panel script-panel">
-      <span className="micro">Presentation Walkthrough</span>
-      <h2>Two-minute SolarHub pitch flow</h2>
+      <span className="micro">Executive Walkthrough</span>
+      <h2>Two-minute operating narrative</h2>
       <div className="script-list">
         {pitchSteps.map((step, index) => (
           <div className="script-row" key={step}>

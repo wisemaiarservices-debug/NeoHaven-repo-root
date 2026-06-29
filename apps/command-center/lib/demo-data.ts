@@ -18,7 +18,7 @@ export type ServiceStatus = {
   id: string;
   name: string;
   label: string;
-  status: 'Connected' | 'Fallback';
+  status: 'Connected' | 'Standby';
   endpoint: string;
   health: string;
   description: string;
@@ -42,7 +42,7 @@ export const navItems: NavItem[] = [
   { label: 'Energy / NeoGrid', href: '/energy', key: 'energy', eyebrow: 'Solar + Battery' },
   { label: 'Infrastructure / NeoCell', href: '/infrastructure', key: 'infrastructure', eyebrow: 'Edge + Sensors' },
   { label: 'NOVA Core AI', href: '/nova-core', key: 'ai', eyebrow: 'Decision Layer' },
-  { label: 'Demo Script', href: '/walkthrough', key: 'demo', eyebrow: 'Pitch Mode' },
+  { label: 'Executive Walkthrough', href: '/walkthrough', key: 'demo', eyebrow: 'Executive Overview' },
 ];
 
 export const serviceStatuses: ServiceStatus[] = [
@@ -50,9 +50,9 @@ export const serviceStatuses: ServiceStatus[] = [
     id: 'nova-core',
     name: 'NOVA Core AI v0',
     label: 'Forecast / Recommend / Explain',
-    status: 'Fallback',
-    endpoint: 'localhost:8100',
-    health: 'Demo safe',
+    status: 'Standby',
+    endpoint: 'NOVA Core API',
+    health: 'Operational preview',
     description: 'Turns site telemetry into forecasts, scenario simulations, operator-approved recommendations, and assistant explanations.',
     tone: 'violet',
   },
@@ -60,8 +60,8 @@ export const serviceStatuses: ServiceStatus[] = [
     id: 'neoagro',
     name: 'NeoAgro',
     label: 'NOVA Agriculture',
-    status: 'Fallback',
-    endpoint: 'localhost:8000',
+    status: 'Standby',
+    endpoint: 'NeoAgro API',
     health: '82% crop health',
     description: 'Monitors crop stress, soil moisture, irrigation timing, yield risk, and water-saving opportunities for agrivoltaic fields.',
     tone: 'green',
@@ -70,8 +70,8 @@ export const serviceStatuses: ServiceStatus[] = [
     id: 'neogrid',
     name: 'NeoGrid',
     label: 'NOVA Energy',
-    status: 'Fallback',
-    endpoint: 'localhost:8200',
+    status: 'Standby',
+    endpoint: 'NeoGrid API',
     health: '67% battery reserve',
     description: 'Coordinates solar generation, battery state, grid import/export, load timing, and carbon reduction.',
     tone: 'gold',
@@ -80,8 +80,8 @@ export const serviceStatuses: ServiceStatus[] = [
     id: 'neocell',
     name: 'NeoCell',
     label: 'NOVA Infrastructure',
-    status: 'Fallback',
-    endpoint: 'localhost:8300',
+    status: 'Standby',
+    endpoint: 'NeoCell API',
     health: '87% site readiness',
     description: 'Tracks gateway health, sensor coverage, edge battery reserve, data latency, pump readiness, and field infrastructure status.',
     tone: 'blue',
@@ -115,7 +115,7 @@ export const energySeries = [8, 42, 138, 245, 338, 418, 487, 462, 425, 364, 275,
 export const infrastructureStats = [
   { label: 'Gateway Online', value: '94%', note: 'edge link stable' },
   { label: 'Sensor Coverage', value: '89%', note: '11% degraded nodes' },
-  { label: 'Data Latency', value: '180 ms', note: 'inside demo threshold' },
+  { label: 'Data Latency', value: '180 ms', note: 'inside operating threshold' },
   { label: 'Pump Node', value: 'Ready', note: 'manual approval required' },
 ];
 
@@ -174,8 +174,8 @@ export const assets = [
 ];
 
 export const pitchSteps = [
-  'Open NOVA OS Command Center and confirm fallback-safe demo mode.',
-  'Show the SolarHub heatwave agrivoltaic scenario and service status chips.',
+  'Open NOVA OS Command Center and confirm the Connected / Standby operating posture.',
+  'Show the heatwave agrivoltaic scenario and service status chips.',
   'Explain NeoAgro crop stress, soil moisture, irrigation timing, and water savings.',
   'Explain NeoGrid solar production, battery reserve, grid import, and carbon impact.',
   'Explain NeoCell gateway, sensor, edge power, latency, and pump readiness.',

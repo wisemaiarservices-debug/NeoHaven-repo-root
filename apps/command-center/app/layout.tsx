@@ -2,7 +2,7 @@ import './globals.css';
 
 export const metadata = {
   title: 'NOVA Command Center',
-  description: 'SolarHub demo command center for NOVA OS.'
+  description: 'Decision intelligence for sustainable infrastructure operations.'
 };
 
 export default function RootLayout(props: { children: React.ReactNode }) {

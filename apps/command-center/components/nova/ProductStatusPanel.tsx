@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ExternalLink, GitPullRequest, ShieldCheck } from "lucide-react";
+import { ExternalLink, ShieldCheck } from "lucide-react";
 import { productModules } from "@/data/mockData";
 
 const statusClass = (status: string) => {
@@ -16,7 +16,7 @@ export function ProductStatusPanel() {
           <div className="stat-label">Product UI integration</div>
           <h2 className="mt-1 text-xl font-semibold tracking-tight">Working module links and readiness</h2>
           <p className="mt-1 text-sm text-muted-foreground">
-            NOVA OS can route operators to the product modules while PRs move through review.
+            NOVA OS routes operators to ready product modules with advisory, approval-gated recommendations.
           </p>
         </div>
         <span className="chip border-neo-green/40 text-neo-green bg-neo-green/10">
@@ -39,11 +39,6 @@ export function ProductStatusPanel() {
               <p className="mt-2 min-h-[48px] text-[12px] leading-5 text-muted-foreground">{module.summary}</p>
               <div className="mt-3 flex flex-wrap gap-2">
                 <span className={`chip ${statusClass(module.status)}`}>{module.status}</span>
-                {module.pr ? (
-                  <a className="chip border-border/70 text-muted-foreground hover:text-foreground" href={module.pr} target="_blank" rel="noreferrer">
-                    <GitPullRequest className="h-3.5 w-3.5" /> PR
-                  </a>
-                ) : null}
               </div>
             </article>
           );
