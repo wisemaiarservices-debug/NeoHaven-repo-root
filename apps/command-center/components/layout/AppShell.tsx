@@ -19,6 +19,7 @@ const nav = [
   { to: "/knowledge-graph",label: "Knowledge Graph",  icon: Network },
   { to: "/recommendations",label: "Recommendations",  icon: ListChecks },
   { to: "/impact",         label: "Impact Reports",   icon: BarChart3 },
+  { to: "/cres-demo",      label: "CRES Agri-PV Demo", icon: Presentation },
   { to: "/walkthrough",    label: "Executive Walkthrough", icon: Presentation },
   { to: "/settings",       label: "Settings",         icon: Settings },
 ];
