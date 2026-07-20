@@ -1,0 +1,6 @@
+NOVA OS Agri-PV Collaboration Demo
+
+Synthetic discussion data only.
+No field validation claimed.
+No autonomous physical control.
+Expert review and validation required.
