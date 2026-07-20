@@ -20,6 +20,7 @@ const nav = [
   { to: "/recommendations",label: "Recommendations",  icon: ListChecks },
   { to: "/impact",         label: "Impact Reports",   icon: BarChart3 },
   { to: "/walkthrough",    label: "Executive Walkthrough", icon: Presentation },
+  { to: "/solarhub-demo",  label: "Agri-PV Validation Demo", icon: Presentation },
   { to: "/settings",       label: "Settings",         icon: Settings },
 ];
 
