@@ -31,7 +31,7 @@
       <article class="card">
         <div class="cardhead"><div><div class="step">01 / Create proof</div><h2>Fingerprint a document</h2></div><span class="pill">SHA-256</span></div>
         <p class="hint">Choose a non-sensitive sample document. The digest is calculated from its bytes, not its filename.</p>
-        <label class="drop" for="sourceFile"><div class="fileicon" aria-hidden="true">↥</div><strong id="sourceTitle">Choose a file to inspect</strong><span id="sourceSub">Select any file stored on this device</span></label>
+        <label class="drop" for="sourceFile"><div class="fileicon" aria-hidden="true">↥</div><strong id="sourceTitle">Choose a file to inspect</strong><span id="sourceSub">Select a file up to 20 MB</span></label>
         <input id="sourceFile" type="file">
         <div class="actions"><button class="btn primary" id="createBtn" disabled>Create proof record</button><button class="btn" id="clearBtn" type="button">Clear</button></div>
         <div id="createStatus" class="status" role="status" aria-live="polite">Waiting for a file.</div>
@@ -63,7 +63,7 @@
 <script>
 (() => {
   const $ = (id) => document.getElementById(id);
-  const state = { source: null, digest: null, proof: null, verify: null, proofRecord: null };
+  const MAX_FILE_BYTES = 20 * 1024 * 1024;\n  const state = { source: null, digest: null, proof: null, verify: null, proofRecord: null };
   const fmtSize = (n) => n < 1024 ? n + " B" : n < 1024*1024 ? (n/1024).toFixed(1)+" KB" : n < 1024*1024*1024 ? (n/1024/1024).toFixed(2)+" MB" : (n/1024/1024/1024).toFixed(2)+" GB";
   const fmtDate = (n) => n ? new Date(n).toLocaleString() : "Unknown";
   const setStatus = (id, message, kind="") => { const el=$(id); el.textContent=message; el.className="status"+(kind?" "+kind:""); };
@@ -72,16 +72,16 @@
     if (!globalThis.crypto || !crypto.subtle) throw new Error("Web Crypto is unavailable in this context. Open the page in a modern browser or a secure local context.");
     return hex(await crypto.subtle.digest("SHA-256", await file.arrayBuffer()));
   }
-  function updateVerifyButton(){ $("verifyBtn").disabled=!(state.proofRecord && state.verify); }
+  function updateVerifyButton(){ $("verifyBtn").disabled=!(state.proofRecord && state.verify && state.verify.size<=MAX_FILE_BYTES); }
   $("sourceFile").addEventListener("change", () => {
     state.source=$("sourceFile").files[0]||null; state.digest=null;
     $("createBtn").disabled=!state.source; $("copyBtn").disabled=true; $("exportBtn").disabled=true;
     $("sourceTitle").textContent=state.source?state.source.name:"Choose a file to inspect";
-    $("sourceSub").textContent=state.source?fmtSize(state.source.size)+" · ready to fingerprint":"Select any file stored on this device";
+    $("sourceSub").textContent=state.source?fmtSize(state.source.size)+(sourceTooLarge?" · exceeds 20 MB limit":" · ready to fingerprint"):"Select a file up to 20 MB";
     $("fileSize").textContent=state.source?fmtSize(state.source.size):"—";
     $("fileModified").textContent=state.source?fmtDate(state.source.lastModified):"—";
     $("hashOutput").textContent="Select “Create proof record” to calculate the digest."; $("hashOutput").classList.add("empty");
-    setStatus("createStatus",state.source?"File selected. No upload will be performed.":"Waiting for a file.");
+    setStatus("createStatus",sourceTooLarge?"For PC safety, choose a file smaller than 20 MB.":state.source?"File selected. No upload will be performed.":"Waiting for a file.",sourceTooLarge?"bad":"");
   });
   $("createBtn").addEventListener("click", async () => {
     if(!state.source) return;
