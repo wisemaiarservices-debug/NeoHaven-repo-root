@@ -11,7 +11,7 @@ A lightweight, browser-only proof-of-concept for checking whether a project docu
 
 ## Run
 
-Open `index.html` in a modern browser (Edge, Chrome, or Firefox). SHA-256 uses the browser's Web Crypto API. If the browser blocks that API for local files, serve this folder using an existing local development workflow or open it from a secure context; do not install new tooling just for this prototype.
+Open `index.html` in a modern browser (Edge, Chrome, or Firefox). Use files no larger than 20 MB; this limit avoids unnecessarily large in-memory reads on modest PCs. SHA-256 uses the browser's Web Crypto API. If the browser blocks that API for local files, serve this folder using an existing local development workflow or open it from a secure context; do not install new tooling just for this prototype.
 
 ## Proof record fields
 
