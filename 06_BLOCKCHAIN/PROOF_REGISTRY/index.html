@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101a20">
+  <title>NeoHaven · Proof Registry</title>
+  <style>
+    :root{color-scheme:dark;--bg:#0c1419;--panel:#121f26;--panel2:#172831;--line:#2a414b;--text:#edf5f3;--muted:#a0b5b8;--accent:#7de0c0;--accent2:#b7f3df;--danger:#ffb3aa;--good:#9cf0c8;--radius:18px}
+    *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 12% 0%,#19323a 0,transparent 42%),var(--bg);color:var(--text);font:15px/1.55 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    button,input{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+    .shell{max-width:1060px;margin:auto;padding:30px 20px 56px}.top{display:flex;justify-content:space-between;gap:18px;align-items:center;margin-bottom:42px}.brand{display:flex;gap:12px;align-items:center}.mark{width:42px;height:42px;border:1px solid #3e6b68;border-radius:14px;display:grid;place-items:center;color:var(--accent);font-weight:800;letter-spacing:-.08em;background:#142a2e}.eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:700}.brandname{font-weight:750;letter-spacing:.01em}.pill{border:1px solid var(--line);border-radius:999px;padding:6px 10px;color:var(--muted);font-size:12px;white-space:nowrap}
+    h1{font-size:clamp(30px,5vw,48px);letter-spacing:-.045em;line-height:1.08;margin:10px 0 16px;max-width:720px}.intro{color:var(--muted);max-width:680px;margin:0}.hero{margin-bottom:30px}.layout{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(290px,.9fr);gap:18px}.card{background:linear-gradient(150deg,rgba(23,40,49,.96),rgba(16,29,36,.98));border:1px solid var(--line);border-radius:var(--radius);padding:22px;min-width:0}.cardhead{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:18px}.step{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:750}.card h2{font-size:18px;margin:4px 0 0;letter-spacing:-.02em}.hint{color:var(--muted);font-size:13px;margin:6px 0 16px}.drop{display:block;border:1px dashed #527078;border-radius:14px;background:rgba(5,16,21,.35);padding:22px;text-align:center;transition:border-color .15s}.drop:hover{border-color:var(--accent)}.fileicon{width:42px;height:42px;display:grid;place-items:center;border:1px solid #3d6267;background:#193338;border-radius:13px;margin:0 auto 12px;color:var(--accent);font-size:22px}.drop strong{display:block}.drop span{display:block;color:var(--muted);font-size:12px;margin-top:5px}input[type=file]{position:absolute;width:1px;height:1px;opacity:0;overflow:hidden;pointer-events:none}
+    .actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px}.btn{border-radius:11px;border:1px solid var(--line);background:#1a2c34;color:var(--text);padding:10px 14px;font-weight:650}.btn.primary{background:var(--accent);color:#09201a;border-color:var(--accent)}.btn:disabled{opacity:.4;cursor:not-allowed}.status{margin-top:14px;padding:11px 12px;border-radius:10px;border:1px solid var(--line);color:var(--muted);font-size:13px;min-height:44px;overflow-wrap:anywhere}.status.good{color:var(--good);border-color:#326a55;background:#102a22}.status.bad{color:var(--danger);border-color:#75443e;background:#2a1918}.filemeta{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0}.metric{border:1px solid var(--line);border-radius:12px;padding:12px;min-width:0}.metric label{display:block;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.08em}.metric strong{display:block;margin-top:5px;overflow-wrap:anywhere;font-size:13px}.hashlabel{display:flex;justify-content:space-between;align-items:center;gap:8px;color:var(--muted);font-size:12px;margin-bottom:6px}.hash{padding:12px;border-radius:12px;background:#091317;border:1px solid #223740;color:var(--accent2);font:12px/1.7 ui-monospace,SFMono-Regular,Consolas,monospace;overflow-wrap:anywhere;min-height:70px}.subsection{margin-top:24px;padding-top:20px;border-top:1px solid var(--line)}.footnote{margin-top:22px;color:var(--muted);font-size:12px}.footnote strong{color:var(--text)}.tiny{font-size:11px;color:var(--muted)}.empty{color:#718b91}.statusline{display:flex;align-items:center;gap:8px}.dot{width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block;flex-shrink:0}
+    @media(max-width:760px){.layout{grid-template-columns:1fr}.top{margin-bottom:30px}.card{padding:18px}.shell{padding:22px 14px 40px}.pill{white-space:normal;text-align:center}}
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="top">
+      <div class="brand"><div class="mark" aria-hidden="true">NH</div><div><div class="eyebrow">NeoHaven Urban Labs</div><div class="brandname">NOVA OS · Trust Infrastructure</div></div></div>
+      <div class="pill"><span class="dot"></span> Local-only prototype</div>
+    </header>
+    <section class="hero">
+      <div class="eyebrow">Integrity tools / 001</div>
+      <h1>Proof Registry<span style="color:var(--accent)">.</span></h1>
+      <p class="intro">Create a SHA-256 fingerprint for a project file, export a proof record, and check the file again later. Your file is processed in this browser and is not uploaded by this page.</p>
+    </section>
+
+    <section class="layout" aria-label="Proof registry tools">
+      <article class="card">
+        <div class="cardhead"><div><div class="step">01 / Create proof</div><h2>Fingerprint a document</h2></div><span class="pill">SHA-256</span></div>
+        <p class="hint">Choose a non-sensitive sample document. The digest is calculated from its bytes, not its filename.</p>
+        <label class="drop" for="sourceFile"><div class="fileicon" aria-hidden="true">↥</div><strong id="sourceTitle">Choose a file to inspect</strong><span id="sourceSub">Select any file stored on this device</span></label>
+        <input id="sourceFile" type="file">
+        <div class="actions"><button class="btn primary" id="createBtn" disabled>Create proof record</button><button class="btn" id="clearBtn" type="button">Clear</button></div>
+        <div id="createStatus" class="status" role="status" aria-live="polite">Waiting for a file.</div>
+        <div class="filemeta">
+          <div class="metric"><label>File size</label><strong id="fileSize">—</strong></div>
+          <div class="metric"><label>Modified</label><strong id="fileModified">—</strong></div>
+        </div>
+        <div class="hashlabel"><span>SHA-256 digest</span><button class="btn" id="copyBtn" disabled>Copy digest</button></div>
+        <div id="hashOutput" class="hash empty">Your digest will appear here after calculation.</div>
+        <div class="actions"><button class="btn" id="exportBtn" disabled>Export proof JSON</button></div>
+      </article>
+
+      <article class="card">
+        <div class="cardhead"><div><div class="step">02 / Verify proof</div><h2>Check a document</h2></div><span class="pill">Compare</span></div>
+        <p class="hint">Load a proof JSON exported by this prototype, then select the file you want to verify against it.</p>
+        <label class="drop" for="proofFile"><div class="fileicon" aria-hidden="true">▤</div><strong id="proofTitle">Choose a proof JSON</strong><span id="proofSub">A previously exported .json record</span></label>
+        <input id="proofFile" type="file" accept=".json,application/json">
+        <div class="subsection">
+          <label class="drop" for="verifyFile"><div class="fileicon" aria-hidden="true">⌕</div><strong id="verifyTitle">Choose the file to verify</strong><span id="verifySub">Select the original or a suspected changed copy</span></label>
+          <input id="verifyFile" type="file">
+        </div>
+        <div class="actions"><button class="btn primary" id="verifyBtn" disabled>Verify file</button></div>
+        <div id="verifyStatus" class="status" role="status" aria-live="polite">Waiting for a proof record and file.</div>
+        <div class="footnote"><strong>Important:</strong> a matching hash checks byte-for-byte integrity against the digest in the supplied record. It does not prove who created the document, whether its contents are true, or when it existed.</div>
+      </article>
+    </section>
+    <p class="footnote">Prototype only · No wallet, blockchain connection, tokens, server, analytics, or network calls. Proof JSON is not signed and can be altered; treat it as a portable checksum record, not as authenticated evidence.</p>
+  </main>
+<script>
+(() => {
+  const $ = (id) => document.getElementById(id);
+  const state = { source: null, digest: null, proof: null, verify: null, proofRecord: null };
+  const fmtSize = (n) => n < 1024 ? n + " B" : n < 1024*1024 ? (n/1024).toFixed(1)+" KB" : n < 1024*1024*1024 ? (n/1024/1024).toFixed(2)+" MB" : (n/1024/1024/1024).toFixed(2)+" GB";
+  const fmtDate = (n) => n ? new Date(n).toLocaleString() : "Unknown";
+  const setStatus = (id, message, kind="") => { const el=$(id); el.textContent=message; el.className="status"+(kind?" "+kind:""); };
+  const hex = (buffer) => Array.from(new Uint8Array(buffer), b=>b.toString(16).padStart(2,"0")).join("");
+  async function digest(file) {
+    if (!globalThis.crypto || !crypto.subtle) throw new Error("Web Crypto is unavailable in this context. Open the page in a modern browser or a secure local context.");
+    return hex(await crypto.subtle.digest("SHA-256", await file.arrayBuffer()));
+  }
+  function updateVerifyButton(){ $("verifyBtn").disabled=!(state.proofRecord && state.verify); }
+  $("sourceFile").addEventListener("change", () => {
+    state.source=$("sourceFile").files[0]||null; state.digest=null;
+    $("createBtn").disabled=!state.source; $("copyBtn").disabled=true; $("exportBtn").disabled=true;
+    $("sourceTitle").textContent=state.source?state.source.name:"Choose a file to inspect";
+    $("sourceSub").textContent=state.source?fmtSize(state.source.size)+" · ready to fingerprint":"Select any file stored on this device";
+    $("fileSize").textContent=state.source?fmtSize(state.source.size):"—";
+    $("fileModified").textContent=state.source?fmtDate(state.source.lastModified):"—";
+    $("hashOutput").textContent="Select “Create proof record” to calculate the digest."; $("hashOutput").classList.add("empty");
+    setStatus("createStatus",state.source?"File selected. No upload will be performed.":"Waiting for a file.");
+  });
+  $("createBtn").addEventListener("click", async () => {
+    if(!state.source) return;
+    $("createBtn").disabled=true; setStatus("createStatus","Calculating SHA-256…");
+    try {
+      state.digest=await digest(state.source);
+      $("hashOutput").textContent=state.digest; $("hashOutput").classList.remove("empty");
+      $("copyBtn").disabled=false; $("exportBtn").disabled=false;
+      setStatus("createStatus","Digest calculated in this browser.", "good");
+    } catch(err){ setStatus("createStatus",err.message,"bad"); }
+    finally{$("createBtn").disabled=!state.source;}
+  });
+  $("copyBtn").addEventListener("click", async () => {
+    if(!state.digest) return;
+    try { await navigator.clipboard.writeText(state.digest); setStatus("createStatus","Digest copied to clipboard.","good"); }
+    catch { setStatus("createStatus","Clipboard access was blocked by the browser. You can select and copy the digest manually."); }
+  });
+  $("exportBtn").addEventListener("click", () => {
+    if(!state.source||!state.digest) return;
+    const record={schemaVersion:1,algorithm:"SHA-256",fileName:state.source.name,fileSizeBytes:state.source.size,lastModified:state.source.lastModified,sha256:state.digest,createdAt:new Date().toISOString(),recordType:"unsigned-local-checksum"};
+    const blob=new Blob([JSON.stringify(record,null,2)],{type:"application/json"});
+    const url=URL.createObjectURL(blob); const a=document.createElement("a"); a.href=url; a.download=state.source.name.replace(/[^a-zA-Z0-9._-]/g,"_")+".proof.json"; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+    setStatus("createStatus","Proof JSON exported. Store it safely alongside your document.","good");
+  });
+  $("clearBtn").addEventListener("click", () => {
+    state.source=null;state.digest=null;$("sourceFile").value="";$("createBtn").disabled=true;$("copyBtn").disabled=true;$("exportBtn").disabled=true;
+    $("sourceTitle").textContent="Choose a file to inspect";$("sourceSub").textContent="Select any file stored on this device";$("fileSize").textContent="—";$("fileModified").textContent="—";$("hashOutput").textContent="Your digest will appear here after calculation.";$("hashOutput").classList.add("empty");setStatus("createStatus","Waiting for a file.");
+  });
+  $("proofFile").addEventListener("change", async () => {
+    const file=$("proofFile").files[0]||null; state.proofRecord=null;
+    $("proofTitle").textContent=file?file.name:"Choose a proof JSON";
+    $("proofSub").textContent=file?fmtSize(file.size):"A previously exported .json record";
+    if(!file){updateVerifyButton();return;}
+    try{
+      const record=JSON.parse(await file.text());
+      if(record.schemaVersion!==1||record.algorithm!=="SHA-256"||typeof record.sha256!=="string"||!/^[a-f0-9]{64}$/i.test(record.sha256)) throw new Error("Unsupported or malformed proof record.");
+      state.proofRecord=record;setStatus("verifyStatus","Proof record loaded. Note: this record is not signed or authenticated.");
+    }catch(err){setStatus("verifyStatus","Could not load proof record: "+err.message,"bad");}
+    updateVerifyButton();
+  });
+  $("verifyFile").addEventListener("change", () => {
+    state.verify=$("verifyFile").files[0]||null;
+    $("verifyTitle").textContent=state.verify?state.verify.name:"Choose the file to verify";
+    $("verifySub").textContent=state.verify?fmtSize(state.verify.size):"Select the original or a suspected changed copy";
+    updateVerifyButton();
+  });
+  $("verifyBtn").addEventListener("click", async () => {
+    if(!state.proofRecord||!state.verify)return;
+    $("verifyBtn").disabled=true;setStatus("verifyStatus","Calculating selected file digest…");
+    try{
+      const actual=await digest(state.verify);
+      const matches=actual.toLowerCase()===state.proofRecord.sha256.toLowerCase();
+      if(matches) setStatus("verifyStatus","MATCH — selected file bytes match the digest in this proof record.","good");
+      else setStatus("verifyStatus","NO MATCH — the selected file differs from the digest in this proof record.","bad");
+    }catch(err){setStatus("verifyStatus",err.message,"bad");}
+    finally{updateVerifyButton();}
+  });
+})();
+</script>
+</body>
+</html>
