@@ -64,6 +64,7 @@
 (() => {
   const $ = (id) => document.getElementById(id);
   const MAX_FILE_BYTES = 20 * 1024 * 1024;
+  const MAX_PROOF_BYTES = 64 * 1024;
   const state = { source: null, digest: null, proof: null, verify: null, proofRecord: null };
   const fmtSize = (n) => n < 1024 ? n + " B" : n < 1024*1024 ? (n/1024).toFixed(1)+" KB" : n < 1024*1024*1024 ? (n/1024/1024).toFixed(2)+" MB" : (n/1024/1024/1024).toFixed(2)+" GB";
   const fmtDate = (n) => n ? new Date(n).toLocaleString() : "Unknown";
@@ -117,6 +118,7 @@
     $("proofTitle").textContent=file?file.name:"Choose a proof JSON";
     $("proofSub").textContent=file?fmtSize(file.size):"A previously exported .json record";
     if(!file){updateVerifyButton();return;}
+    if(file.size > MAX_PROOF_BYTES){setStatus("verifyStatus","Proof record is too large. Choose a JSON file under 64 KB.","bad");updateVerifyButton();return;}
     try{
       const record=JSON.parse(await file.text());
       if(record.schemaVersion!==1||record.algorithm!=="SHA-256"||typeof record.sha256!=="string"||!/^[a-f0-9]{64}$/i.test(record.sha256)) throw new Error("Unsupported or malformed proof record.");
