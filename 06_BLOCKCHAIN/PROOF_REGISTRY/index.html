@@ -63,7 +63,8 @@
 <script>
 (() => {
   const $ = (id) => document.getElementById(id);
-  const MAX_FILE_BYTES = 20 * 1024 * 1024;\n  const state = { source: null, digest: null, proof: null, verify: null, proofRecord: null };
+  const MAX_FILE_BYTES = 20 * 1024 * 1024;
+  const state = { source: null, digest: null, proof: null, verify: null, proofRecord: null };
   const fmtSize = (n) => n < 1024 ? n + " B" : n < 1024*1024 ? (n/1024).toFixed(1)+" KB" : n < 1024*1024*1024 ? (n/1024/1024).toFixed(2)+" MB" : (n/1024/1024/1024).toFixed(2)+" GB";
   const fmtDate = (n) => n ? new Date(n).toLocaleString() : "Unknown";
   const setStatus = (id, message, kind="") => { const el=$(id); el.textContent=message; el.className="status"+(kind?" "+kind:""); };
@@ -75,7 +76,8 @@
   function updateVerifyButton(){ $("verifyBtn").disabled=!(state.proofRecord && state.verify && state.verify.size<=MAX_FILE_BYTES); }
   $("sourceFile").addEventListener("change", () => {
     state.source=$("sourceFile").files[0]||null; state.digest=null;
-    $("createBtn").disabled=!state.source; $("copyBtn").disabled=true; $("exportBtn").disabled=true;
+    const sourceTooLarge = !!state.source && state.source.size > MAX_FILE_BYTES;
+    $("createBtn").disabled=!state.source || sourceTooLarge; $("copyBtn").disabled=true; $("exportBtn").disabled=true;
     $("sourceTitle").textContent=state.source?state.source.name:"Choose a file to inspect";
     $("sourceSub").textContent=state.source?fmtSize(state.source.size)+(sourceTooLarge?" · exceeds 20 MB limit":" · ready to fingerprint"):"Select a file up to 20 MB";
     $("fileSize").textContent=state.source?fmtSize(state.source.size):"—";
@@ -92,7 +94,7 @@
       $("copyBtn").disabled=false; $("exportBtn").disabled=false;
       setStatus("createStatus","Digest calculated in this browser.", "good");
     } catch(err){ setStatus("createStatus",err.message,"bad"); }
-    finally{$("createBtn").disabled=!state.source;}
+    finally{$("createBtn").disabled=!state.source || state.source.size > MAX_FILE_BYTES;}
   });
   $("copyBtn").addEventListener("click", async () => {
     if(!state.digest) return;
@@ -108,7 +110,7 @@
   });
   $("clearBtn").addEventListener("click", () => {
     state.source=null;state.digest=null;$("sourceFile").value="";$("createBtn").disabled=true;$("copyBtn").disabled=true;$("exportBtn").disabled=true;
-    $("sourceTitle").textContent="Choose a file to inspect";$("sourceSub").textContent="Select any file stored on this device";$("fileSize").textContent="—";$("fileModified").textContent="—";$("hashOutput").textContent="Your digest will appear here after calculation.";$("hashOutput").classList.add("empty");setStatus("createStatus","Waiting for a file.");
+    $("sourceTitle").textContent="Choose a file to inspect";$("sourceSub").textContent="Select a file up to 20 MB";$("fileSize").textContent="—";$("fileModified").textContent="—";$("hashOutput").textContent="Your digest will appear here after calculation.";$("hashOutput").classList.add("empty");setStatus("createStatus","Waiting for a file.");
   });
   $("proofFile").addEventListener("change", async () => {
     const file=$("proofFile").files[0]||null; state.proofRecord=null;
