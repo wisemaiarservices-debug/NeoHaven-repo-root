@@ -7,7 +7,7 @@ export function KnowledgeGraphPanel() {
     <Panel
       module="Knowledge Graph"
       title="Context chain & asset registry"
-      subtitle="Reasoning provenance for every NOVA recommendation"
+      subtitle="Illustrative asset registry · no live site assets have been registered"
     >
       <div className="flex flex-wrap items-center gap-1.5 mb-4">
         {knowledgeGraph.chain.map((step, i) => (
