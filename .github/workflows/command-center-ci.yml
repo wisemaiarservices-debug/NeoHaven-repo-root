@@ -25,3 +25,22 @@ jobs:
       - name: Build
         working-directory: apps/command-center
         run: npm run build
+      - name: Start production server
+        working-directory: apps/command-center
+        run: |
+          npm run start -- --hostname 127.0.0.1 > /tmp/nova-command-center.log 2>&1 &
+          echo $! > /tmp/nova-command-center.pid
+      - name: Wait for production server
+        working-directory: apps/command-center
+        run: |
+          for attempt in $(seq 1 40); do
+            if curl --fail --silent http://127.0.0.1:8400/ > /dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/nova-command-center.log
+          exit 1
+      - name: Runtime integration smoke tests
+        working-directory: apps/command-center
+        run: node scripts/smoke-runtime.mjs
