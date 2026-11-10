@@ -27,12 +27,13 @@ jobs:
           TARGET_URL: ${{ inputs.target_url }}
         run: |
           node --input-type=module <<'NODE'
+          import { appendFileSync } from "node:fs";
           const target = new URL(process.env.TARGET_URL);
           const allowedHost = target.hostname === "nova-command-center-peach.vercel.app" || target.hostname.endsWith(".vercel.app");
           if (target.protocol !== "https:" || !allowedHost || target.username || target.password || target.search || target.hash) {
             throw new Error("Target must be a clean HTTPS URL on the approved Vercel deployment domain.");
           }
-          console.log(`url=${target.origin}` >> process.env.GITHUB_OUTPUT);
+          appendFileSync(process.env.GITHUB_OUTPUT, `url=${target.origin}\n`);
           NODE
       - name: Verify deployed API and module status
         working-directory: apps/command-center
