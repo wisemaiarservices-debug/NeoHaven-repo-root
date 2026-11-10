@@ -1,0 +1,42 @@
+name: NOVA Command Center deployed runtime smoke
+
+on:
+  workflow_dispatch:
+    inputs:
+      target_url:
+        description: "HTTPS Command Center deployment URL to verify"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  deployed-runtime:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: test/command-center-deployed-runtime-smoke
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Validate target URL
+        id: target
+        env:
+          TARGET_URL: ${{ inputs.target_url }}
+        run: |
+          node --input-type=module <<'NODE'
+          import { appendFileSync } from "node:fs";
+          const target = new URL(process.env.TARGET_URL);
+          const allowedHost = target.hostname === "nova-command-center-peach.vercel.app" || target.hostname.endsWith(".vercel.app");
+          if (target.protocol !== "https:" || !allowedHost || target.username || target.password || target.search || target.hash) {
+            throw new Error("Target must be a clean HTTPS URL on the approved Vercel deployment domain.");
+          }
+          appendFileSync(process.env.GITHUB_OUTPUT, `url=${target.origin}\n`);
+          NODE
+      - name: Verify deployed API and module status
+        working-directory: apps/command-center
+        env:
+          NOVA_COMMAND_CENTER_BASE_URL: ${{ steps.target.outputs.url }}
+        run: node scripts/smoke-runtime.mjs
