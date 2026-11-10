@@ -52,7 +52,7 @@ async function checkWebsite(url: string) {
     });
     await response.body?.cancel().catch(() => undefined);
     return {
-      status: response.ok ? "reachable" : "unavailable",
+      status: response.ok ? "reachable" : response.status === 401 || response.status === 403 ? "access_restricted" : "unavailable",
       httpStatus: response.status,
     };
   } catch (error) {
