@@ -29,7 +29,7 @@ A successful website navigation or API process health check is not proof of auth
 
 ## Current dashboard data classification
 
-The existing Command Center field-zone layout, asset graph and digital-twin topology remain scenario fixtures. They are explicitly labelled illustrative, with no selected site or live sensor feed. The NeoGrid and NeoCell screens now show disconnected states instead of fabricated telemetry. Impact reporting is blocked until a baseline and verified observations exist. Settings shows unknown/unconfigured deployment values honestly.
+The Command Center overview now prioritizes live service checks, product workspace links and provider-backed data retrieval instead of hardcoded site KPIs and mock recommendation queues. The field-zone layout, asset graph and digital-twin topology remain scenario fixtures, explicitly labelled illustrative, with no selected site or live sensor feed. The NeoGrid and NeoCell screens show disconnected states instead of fabricated telemetry. Impact reporting is blocked until a baseline and verified observations exist. Settings shows unknown/unconfigured deployment values honestly.
 
 The NeoAgro screen now provides a live NASA POWER daily retrieval workflow through a same-origin Command Center API route and the deployed NOVA Core Worker. It requires operator-entered coordinates and date range; no site is preselected. The UI shows returned provider values, units, nulls, requested location/period and NASA attribution, and allows CSV export. This is gridded model/satellite-derived data, not field sensor telemetry.
 
