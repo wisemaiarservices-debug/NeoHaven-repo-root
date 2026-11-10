@@ -42,6 +42,7 @@ export function CoreConnectivityPanel() {
   const coreOnline = data?.core.status === "online";
 
   return (
+    <div id="live-integration">
     <Panel
       module="NOVA OS · Live integration"
       title="Core connectivity & platform links"
@@ -93,5 +94,6 @@ export function CoreConnectivityPanel() {
       </div>
       {error && <p role="alert" className="mt-2 text-xs text-alert-red"><CircleHelp className="mr-1 inline h-3 w-3" />{error}</p>}
     </Panel>
+    </div>
   );
 }
