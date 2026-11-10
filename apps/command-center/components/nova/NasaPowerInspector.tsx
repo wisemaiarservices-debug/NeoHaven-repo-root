@@ -1,6 +1,7 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { useState } from "react";
+import type { FormEvent } from "react";
 import { CalendarDays, Download, LoaderCircle, MapPin, RefreshCw, Satellite } from "lucide-react";
 import { Panel } from "@/components/nova/Panel";
 
@@ -76,7 +77,7 @@ export function NasaPowerInspector() {
     link.href = href;
     link.download = "nova-nasa-power-daily.csv";
     link.click();
-    URL.revokeObjectURL(href);
+    window.setTimeout(() => URL.revokeObjectURL(href), 1000);
   }
 
   return (
