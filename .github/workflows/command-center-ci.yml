@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - main
+      - feat/command-center-live-core-integration
 
 jobs:
   web-build:
