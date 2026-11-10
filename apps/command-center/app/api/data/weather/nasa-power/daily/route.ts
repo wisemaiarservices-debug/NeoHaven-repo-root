@@ -9,13 +9,17 @@ const CORE_API_URL = (
 ).replace(/\/$/, "");
 
 function validDate(value: string) {
-  return /^\d{4}-\d{2}-\d{2}$/.test(value) && !Number.isNaN(Date.parse(value));
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+  const parsed = new Date(`${value}T00:00:00Z`);
+  return !Number.isNaN(parsed.getTime()) && parsed.toISOString().slice(0, 10) === value;
 }
 
 export async function GET(request: NextRequest) {
   const params = request.nextUrl.searchParams;
-  const latitude = Number(params.get("latitude"));
-  const longitude = Number(params.get("longitude"));
+  const rawLatitude = params.get("latitude");
+  const rawLongitude = params.get("longitude");
+  const latitude = rawLatitude === null || rawLatitude.trim() === "" ? Number.NaN : Number(rawLatitude);
+  const longitude = rawLongitude === null || rawLongitude.trim() === "" ? Number.NaN : Number(rawLongitude);
   const startDate = params.get("start_date") ?? "";
   const endDate = params.get("end_date") ?? "";
 
