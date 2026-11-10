@@ -39,7 +39,7 @@ The NeoAgro screen now provides a live NASA POWER daily retrieval workflow throu
 2. Complete NOVA Core ingestion authentication, exact module/source grants, site/asset ownership validation, atomic observation + audit writes and idempotency.
 3. Deploy and verify each module API independently; do not infer API health from its Vercel UI.
 4. Connect NeoAgro, NeoGrid and NeoCell through server-to-server service identities; no browser-held service tokens.
-5. Replace the remaining scenario field-zone, digital-twin and asset graph fixtures with typed, provenance-bearing API data. Keep nulls for unavailable observations.
+5. Populate the currently empty field-zone, digital-twin and asset-registry views only after typed, provenance-bearing site and asset APIs are deployed. Keep nulls for unavailable observations.
 6. Implement operator review/approval persistence and an audit trail. Recommendations remain advisory; no autonomous infrastructure control.
 7. Add end-to-end tests proving each screen renders live data with source identity, units, timestamps and quality flags.
 
