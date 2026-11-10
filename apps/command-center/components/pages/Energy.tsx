@@ -1,19 +1,17 @@
 import { AppShell } from "@/components/layout/AppShell";
-import { NeoGridPanel } from "@/components/nova/NeoGridPanel";
-import { KpiCard } from "@/components/nova/KpiCard";
 import { PageHeader } from "./Agriculture";
+import { Panel } from "@/components/nova/Panel";
 
 export default function Energy() {
   return (
     <AppShell>
-      <PageHeader module="NOVA Energy" title="NeoGrid" subtitle="Solar production, battery dispatch, grid balance and carbon avoidance for the SolarHub site." />
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 mb-5">
-        <KpiCard label="Solar Today"      value="184.6" unit="kWh" delta="+12%" tone="good" />
-        <KpiCard label="Battery SOC"      value="68"    unit="%"   delta="-6"   tone="warn" />
-        <KpiCard label="Grid Export"      value="38.2"  unit="kWh" delta="+22%" tone="good" />
-        <KpiCard label="Carbon Avoided"   value="92.1"  unit="kg"  delta="+8%"  tone="good" />
-      </div>
-      <NeoGridPanel />
+      <PageHeader module="NOVA Energy" title="NeoGrid" subtitle="Energy module workspace. No deployed NeoGrid API or live inverter, meter, solar or battery telemetry has been verified." />
+      <Panel module="NeoGrid · integration status" title="Live energy feed not connected" subtitle="The production NeoGrid website is available, but this Command Center does not yet have a verified data endpoint.">
+        <div className="rounded-md border border-solar-gold/30 bg-solar-gold/5 p-4 text-sm text-muted-foreground">
+          Solar generation, battery state of charge, grid import/export and carbon accounting are intentionally not displayed as live values until a provider or device feed is connected and verified.
+          <div className="mt-3"><a className="underline underline-offset-2 text-aurora-blue" href="https://neogrid-sigma.vercel.app" target="_blank" rel="noreferrer">Open NeoGrid platform</a></div>
+        </div>
+      </Panel>
     </AppShell>
   );
 }

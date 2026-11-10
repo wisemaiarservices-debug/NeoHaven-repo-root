@@ -4,10 +4,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   LayoutDashboard, Sprout, Zap, Cpu, Brain, Boxes, Network,
-  ListChecks, BarChart3, Settings, Presentation, CircleDot, WifiOff,
+  ListChecks, BarChart3, Settings, Presentation, CircleDot, ExternalLink,
 } from "lucide-react";
 import type { ReactNode } from "react";
-import { site, services } from "@/data/mockData";
+import { site } from "@/data/mockData";
 
 const nav = [
   { to: "/",               label: "Overview",         icon: LayoutDashboard },
@@ -25,8 +25,6 @@ const nav = [
 
 export function AppShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
-  const offline = false; // toggle to true to simulate offline mode (still renders)
-  const degraded = services.some(s => s.status === "degraded");
 
   return (
     <div className="min-h-screen flex w-full text-foreground">
@@ -62,12 +60,22 @@ export function AppShell({ children }: { children: ReactNode }) {
           })}
         </nav>
 
+        <div className="px-3 pb-3 space-y-1">
+          <div className="px-2 pb-1 text-[10px] uppercase tracking-[0.16em] text-muted-foreground">Workspaces</div>
+          <a href="https://nova-os-pied.vercel.app/os" target="_blank" rel="noreferrer" className="flex items-center gap-2 rounded-md border border-border/50 px-3 py-2 text-[12px] text-sidebar-foreground hover:bg-sidebar-accent/60">
+            <ExternalLink className="h-3.5 w-3.5" /> Operator Workspace
+          </a>
+          <a href="https://nova-os-pied.vercel.app/console" target="_blank" rel="noreferrer" className="flex items-center gap-2 rounded-md border border-border/50 px-3 py-2 text-[12px] text-sidebar-foreground hover:bg-sidebar-accent/60">
+            <ExternalLink className="h-3.5 w-3.5" /> Engineering Console
+          </a>
+        </div>
+
         <div className="px-4 py-3 border-t border-sidebar-border text-[11px] text-muted-foreground space-y-1">
           <div className="flex items-center gap-1.5">
             <CircleDot className="w-3 h-3 text-neo-green animate-pulse-soft" />
             <span>NOVA Core v0.9.3</span>
           </div>
-          <div>{site.operator}</div>
+          <div>Live integrations shown separately</div>
         </div>
       </aside>
 
@@ -75,25 +83,15 @@ export function AppShell({ children }: { children: ReactNode }) {
       <div className="flex-1 flex flex-col min-w-0">
         <header className="h-12 border-b border-border/70 bg-midnight/60 backdrop-blur-md flex items-center px-5 gap-4">
           <div className="flex items-center gap-2 text-[12px] text-muted-foreground font-mono">
-            <span className="text-foreground/80">{site.code}</span>
+            <span className="text-foreground/80">NOVA OS</span>
             <span>/</span>
             <span>{site.name}</span>
           </div>
           <div className="ml-auto flex items-center gap-2">
-            {offline ? (
-              <span className="chip border-alert-red/40 text-alert-red bg-alert-red/10">
-                <WifiOff className="w-3 h-3" /> Offline · cached
-              </span>
-            ) : degraded ? (
-              <span className="chip border-solar-gold/40 text-solar-gold bg-solar-gold/10">
-                <CircleDot className="w-3 h-3" /> Degraded · 1 service
-              </span>
-            ) : (
-              <span className="chip border-neo-green/40 text-neo-green bg-neo-green/10">
-                <CircleDot className="w-3 h-3" /> All systems nominal
-              </span>
-            )}
-            <span className="text-[11px] text-muted-foreground font-mono">{site.timestamp}</span>
+            <Link href="/#live-integration" className="chip border-solar-gold/40 text-solar-gold bg-solar-gold/10 hover:border-aurora-blue/60">
+              <CircleDot className="w-3 h-3" /> Integration status · verify
+            </Link>
+            <span className="chip border-solar-gold/40 text-solar-gold bg-solar-gold/10">Scenario fixtures · not live telemetry</span>
           </div>
         </header>
 

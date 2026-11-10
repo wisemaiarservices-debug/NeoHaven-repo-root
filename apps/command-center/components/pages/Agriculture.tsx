@@ -1,18 +1,13 @@
 import { AppShell } from "@/components/layout/AppShell";
 import { NeoAgroPanel } from "@/components/nova/NeoAgroPanel";
-import { KpiCard } from "@/components/nova/KpiCard";
+import { NasaPowerInspector } from "@/components/nova/NasaPowerInspector";
 
 export default function Agriculture() {
   return (
     <AppShell>
-      <PageHeader module="NOVA Agriculture" title="NeoAgro" subtitle="Crop health, soil moisture and irrigation orchestration for the SolarHub agrivoltaic site." />
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 mb-5">
-        <KpiCard label="Crop Health (NDVI)" value="0.72" delta="+0.03" tone="good" />
-        <KpiCard label="Soil Moisture Avg"  value="30" unit="%" delta="-4" tone="warn" />
-        <KpiCard label="Water Use Today"    value="12.4" unit="m³" delta="-18%" tone="good" />
-        <KpiCard label="Yield Risk"         value="11" unit="%↓" delta="-2" tone="good" />
-      </div>
-      <NeoAgroPanel />
+      <PageHeader module="NOVA Agriculture" title="NeoAgro" subtitle="Provider-backed daily weather and solar data through NOVA Core, alongside a clearly separated illustrative field-zone preview." />
+      <NasaPowerInspector />
+      <div className="mt-4"><NeoAgroPanel /></div>
     </AppShell>
   );
 }
