@@ -10,13 +10,13 @@ export function NeoAgroPanel() {
   const stressed = fieldZones.filter(z => z.status === "Stress").length;
   return (
     <Panel
-      module="NOVA Agriculture · NeoAgro"
-      title="Field zones & irrigation"
-      subtitle={`${fieldZones.length} zones · ${stressed} stressed · ${(totalIrrig/1000).toFixed(2)} m³ recommended`}
+      module="NOVA Agriculture · NeoAgro · scenario preview"
+      title="Illustrative field-zone layout"
+      subtitle={`${fieldZones.length} illustrative zones · not connected to a selected site or field sensors`}
       right={
         <div className="text-right">
-          <div className="text-[11px] text-muted-foreground">Water savings vs baseline</div>
-          <div className="text-[15px] font-semibold text-neo-green font-mono">-18%</div>
+          <div className="text-[11px] text-muted-foreground">Scenario-only assumption</div>
+          <div className="text-[15px] font-semibold text-solar-gold font-mono">Not measured</div>
         </div>
       }
     >
@@ -50,7 +50,7 @@ export function NeoAgroPanel() {
         })}
       </div>
       <div className="mt-4 p-3 rounded-md border border-aurora-blue/30 bg-aurora-blue/5">
-        <div className="text-[10px] uppercase tracking-wider text-aurora-blue font-mono">NeoAgro recommendation</div>
+        <div className="text-[10px] uppercase tracking-wider text-aurora-blue font-mono">Scenario illustration · not an instruction</div>
         <div className="text-[13px] mt-0.5">
           Pre-irrigate <span className="font-semibold">Z-03</span> and <span className="font-semibold">Z-08</span> with 1.32 m³ before 11:00 to neutralize heatwave stress.
           Defer non-critical zones to evening pulse on solar surplus.
