@@ -4,15 +4,23 @@ import { useCallback, useEffect, useState } from "react";
 import { Activity, ExternalLink, RefreshCw, ShieldAlert, ShieldCheck, CircleHelp } from "lucide-react";
 import { Panel } from "@/components/nova/Panel";
 
+type WebsiteCheck = { status: "reachable" | "unavailable"; httpStatus: number; error?: string };
 type StatusPayload = {
   checkedAt: string;
   core: { status: "online" | "unavailable"; service: string; endpoint: string; httpStatus: number | null };
   persistence: { status: string; detail: string; httpStatus: number | null };
-  modules: Record<string, { status: string; url: string }>;
+  platforms: Record<string, {
+    kind: "workspace" | "module";
+    url: string;
+    website: WebsiteCheck;
+    apiStatus: "unverified" | "not_applicable";
+  }>;
   dataTrust: { liveTelemetry: boolean; note: string };
 };
 
-const moduleMeta = [
+const platformMeta = [
+  { id: "operator", name: "Operator Workspace", label: "Operations", href: "https://nova-os-pied.vercel.app/os" },
+  { id: "engineering", name: "Engineering Console", label: "Engineering", href: "https://nova-os-pied.vercel.app/console" },
   { id: "neoagro", name: "NeoAgro", label: "Agriculture", href: "https://neoagro-six.vercel.app" },
   { id: "neogrid", name: "NeoGrid", label: "Energy", href: "https://neogrid-sigma.vercel.app" },
   { id: "neocell", name: "NeoCell", label: "Infrastructure", href: "https://neocell-ebon.vercel.app" },
@@ -46,7 +54,7 @@ export function CoreConnectivityPanel() {
     <Panel
       module="NOVA OS · Live integration"
       title="Core connectivity & platform links"
-      subtitle="Live process checks are separated from product navigation and field-data verification."
+      subtitle="Live process and website checks are separated from API, device and field-data verification."
       right={
         <button onClick={() => void refresh()} disabled={loading} className="chip border-border/70 text-foreground hover:border-aurora-blue/60 disabled:opacity-50">
           <RefreshCw className={`h-3 w-3 ${loading ? "animate-spin" : ""}`} /> Check now
@@ -69,24 +77,33 @@ export function CoreConnectivityPanel() {
         </div>
       </div>
 
-      <div className="mt-3 grid grid-cols-1 gap-2 md:grid-cols-3">
-        {moduleMeta.map((module) => (
-          <a key={module.id} href={module.href} target="_blank" rel="noreferrer" className="rounded-md border border-border/60 bg-panel-elevated/40 p-3 hover:border-aurora-blue/50">
-            <div className="flex items-center justify-between gap-2">
-              <div>
-                <div className="stat-label">{module.label}</div>
-                <div className="mt-1 text-sm font-semibold">{module.name}</div>
+      <div className="mt-3 grid grid-cols-1 gap-2 md:grid-cols-2 xl:grid-cols-3">
+        {platformMeta.map((platform) => {
+          const check = data?.platforms[platform.id];
+          const websiteStatus = check?.website.status;
+          return (
+            <a key={platform.id} href={platform.href} target="_blank" rel="noreferrer" className="rounded-md border border-border/60 bg-panel-elevated/40 p-3 hover:border-aurora-blue/50">
+              <div className="flex items-center justify-between gap-2">
+                <div>
+                  <div className="stat-label">{platform.label}</div>
+                  <div className="mt-1 text-sm font-semibold">{platform.name}</div>
+                </div>
+                <ExternalLink className="h-4 w-4 text-muted-foreground" />
               </div>
-              <ExternalLink className="h-4 w-4 text-muted-foreground" />
-            </div>
-            <div className="mt-2 text-[11px] text-solar-gold">UI link available · API not verified</div>
-          </a>
-        ))}
+              <div className={`mt-2 text-[11px] ${websiteStatus === "reachable" ? "text-neo-green" : websiteStatus === "unavailable" ? "text-alert-red" : "text-muted-foreground"}`}>
+                {loading ? "Checking website…" : websiteStatus === "reachable" ? `Website reachable · HTTP ${check?.website.httpStatus}` : websiteStatus === "unavailable" ? "Website unavailable" : "Website not checked"}
+              </div>
+              <div className="mt-1 text-[10px] text-muted-foreground">
+                {check?.kind === "module" ? "Module API · not verified" : "Workspace UI · reachability only"}
+              </div>
+            </a>
+          );
+        })}
       </div>
 
       <div className="mt-3 rounded-md border border-solar-gold/30 bg-solar-gold/5 p-3">
         <div className="flex items-center gap-2 text-xs font-semibold text-solar-gold"><ShieldAlert className="h-4 w-4" /> Data integrity notice</div>
-        <p className="mt-1 text-xs leading-5 text-muted-foreground">{data?.dataTrust.note ?? "Dashboard fixture data is not evidence of live telemetry."}</p>
+        <p className="mt-1 text-xs leading-5 text-muted-foreground">{data?.dataTrust.note ?? "Website availability is not evidence of API connectivity or live telemetry."}</p>
         <div className="mt-2 flex flex-wrap gap-2 text-[10px] text-muted-foreground">
           <span className="chip border-border/60">Live telemetry: {data?.dataTrust.liveTelemetry ? "verified" : "not connected"}</span>
           {data?.checkedAt && <span className="chip border-border/60">Checked {new Date(data.checkedAt).toLocaleString()}</span>}
