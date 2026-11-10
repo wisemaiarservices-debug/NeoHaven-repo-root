@@ -5,24 +5,24 @@ export function DigitalTwinPanel() {
   return (
     <Panel
       module="Digital Twin"
-      title="Site flow · solar → battery → pump → field → yield"
-      subtitle="Simplified live model · 1Hz tick"
+      title="Digital twin · target asset flow"
+      subtitle="Illustrative topology only · no selected site or live asset feed"
     >
       <div className="relative grid-bg rounded-md p-5 border border-border/50 bg-midnight/40 overflow-hidden">
         <div className="absolute inset-x-0 top-1/2 h-px scan-line animate-scan opacity-50" />
         <div className="relative grid grid-cols-5 gap-2 items-center">
-          <Node icon={<Sun className="w-5 h-5" />} label="Solar array" value="184.6 kWh" color="solar-gold" />
-          <Arrow value="62 kW" />
-          <Node icon={<BatteryMedium className="w-5 h-5" />} label="Battery" value="68% SOC" color="aurora-blue" />
-          <Arrow value="4.2 kWh" />
-          <Node icon={<Droplet className="w-5 h-5" />} label="Pump · 5.5 kW" value="ON cycle" color="aurora-blue" />
+          <Node icon={<Sun className="w-5 h-5" />} label="Solar array" value="No live data" color="solar-gold" />
+          <Arrow value="Not connected" />
+          <Node icon={<BatteryMedium className="w-5 h-5" />} label="Battery" value="No live data" color="aurora-blue" />
+          <Arrow value="Not connected" />
+          <Node icon={<Droplet className="w-5 h-5" />} label="Pump · 5.5 kW" value="Not connected" color="aurora-blue" />
         </div>
         <div className="relative grid grid-cols-5 gap-2 items-center mt-4">
           <div />
           <div />
           <div />
-          <Arrow value="1.32 m³" />
-          <Node icon={<Sprout className="w-5 h-5" />} label="Field zones" value="Z-03 / Z-08" color="neo-green" />
+          <Arrow value="No live data" />
+          <Node icon={<Sprout className="w-5 h-5" />} label="Field zones" value="No site assigned" color="neo-green" />
         </div>
         <div className="relative grid grid-cols-5 gap-2 items-center mt-4">
           <div />
@@ -31,7 +31,7 @@ export function DigitalTwinPanel() {
           <div />
           <div className="flex justify-end pr-1">
             <div className="flex items-center gap-1.5 text-[11px] text-neo-green">
-              <Leaf className="w-3.5 h-3.5" /> Yield +11% protected
+              <Leaf className="w-3.5 h-3.5" /> No measured yield impact
             </div>
           </div>
         </div>
