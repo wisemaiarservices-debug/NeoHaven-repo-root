@@ -1,12 +1,12 @@
 // Scenario data for NOVA OS Command Center — agrivoltaic operations site.
 
 export const site = {
-  name: "Agrivoltaic Operations Site",
-  code: "NHV-SH-01",
-  location: "Casablanca · Morocco",
-  scenario: "Heatwave agrivoltaic optimization",
-  operator: "Pilot Operator · Read/Approve",
-  timestamp: "2026-06-25 14:32 UTC+1",
+  name: "Unassigned pilot site",
+  code: "NO SITE SELECTED",
+  location: "Not configured",
+  scenario: "No active scenario selected",
+  operator: "Operator approval required",
+  timestamp: "",
 };
 
 export const services = [
@@ -28,39 +28,39 @@ export const productModules = [
   {
     name: "NOVA Agriculture / NeoAgro",
     product: "Agriculture",
-    status: "ready",
-    summary: "Agrivoltaic intelligence for crop health, water efficiency, energy coordination, and impact reporting.",
-    href: "http://localhost:3000/dashboard",
+    status: "UI available · API unverified",
+    summary: "Agrivoltaic intelligence for crop health, water efficiency, energy coordination, and impact reporting. Live API connection is not yet verified.",
+    href: "https://neoagro-six.vercel.app",
     pr: "",
   },
   {
     name: "NOVA Energy / NeoGrid",
     product: "Energy",
-    status: "ready",
-    summary: "Energy intelligence for solar production, battery operations, grid coordination, carbon impact, and operator-approved optimization.",
-    href: "http://localhost:8504",
+    status: "UI available · API unverified",
+    summary: "Energy intelligence for solar production, battery operations, grid coordination, carbon impact, and operator-approved optimization. Live API connection is not yet verified.",
+    href: "https://neogrid-sigma.vercel.app",
     pr: "",
   },
   {
     name: "NOVA Infrastructure / NeoCell",
     product: "Infrastructure",
-    status: "ready",
-    summary: "AI-ready infrastructure readiness for gateways, sensors, power, water, edge compute, and field deployment planning.",
-    href: "http://localhost:8507",
+    status: "UI available · API unverified",
+    summary: "AI-ready infrastructure readiness for gateways, sensors, power, water, edge compute, and field deployment planning. Live API connection is not yet verified.",
+    href: "https://neocell-ebon.vercel.app",
     pr: "",
   },
   {
     name: "NOVA Core AI",
     product: "Shared AI services",
-    status: "integrated",
-    summary: "Forecast, recommendation, simulation, and assistant explanation workflow visible.",
+    status: "API health endpoint available",
+    summary: "NOVA Core health endpoint is deployed. Forecast, recommendations, storage, and ingestion capabilities must be verified separately before being treated as live.",
     href: "/nova-core",
     pr: "",
   },
   {
     name: "Digital Twin",
     product: "Shared twin layer",
-    status: "integrated",
+    status: "Scenario view · no live asset feed",
     summary: "Site context, asset graph, and operational chain remain available in the command center.",
     href: "/digital-twin",
     pr: "",
@@ -68,7 +68,7 @@ export const productModules = [
   {
     name: "Knowledge Graph",
     product: "Shared intelligence layer",
-    status: "integrated",
+    status: "Scenario view · no live asset feed",
     summary: "Asset relationships and reasoning chain are visible for operator explanation.",
     href: "/knowledge-graph",
     pr: "",
@@ -76,7 +76,7 @@ export const productModules = [
   {
     name: "Impact Reports",
     product: "Measurement layer",
-    status: "integrated",
+    status: "Illustrative · not measured",
     summary: "Water, carbon, resilience, and yield-risk impact reporting remains available.",
     href: "/impact",
     pr: "",
