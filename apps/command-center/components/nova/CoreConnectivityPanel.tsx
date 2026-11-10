@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Activity, ExternalLink, RefreshCw, ShieldAlert, ShieldCheck, CircleHelp } from "lucide-react";
 import { Panel } from "@/components/nova/Panel";
 
-type WebsiteCheck = { status: "reachable" | "unavailable"; httpStatus: number; error?: string };
+type WebsiteCheck = { status: "reachable" | "access_restricted" | "unavailable"; httpStatus: number; error?: string };
 type StatusPayload = {
   checkedAt: string;
   core: { status: "online" | "unavailable"; service: string; endpoint: string; httpStatus: number | null };
@@ -90,8 +90,8 @@ export function CoreConnectivityPanel() {
                 </div>
                 <ExternalLink className="h-4 w-4 text-muted-foreground" />
               </div>
-              <div className={`mt-2 text-[11px] ${websiteStatus === "reachable" ? "text-neo-green" : websiteStatus === "unavailable" ? "text-alert-red" : "text-muted-foreground"}`}>
-                {loading ? "Checking website…" : websiteStatus === "reachable" ? `Website reachable · HTTP ${check?.website.httpStatus}` : websiteStatus === "unavailable" ? "Website unavailable" : "Website not checked"}
+              <div className={`mt-2 text-[11px] ${websiteStatus === "reachable" ? "text-neo-green" : websiteStatus === "unavailable" ? "text-alert-red" : websiteStatus === "access_restricted" ? "text-solar-gold" : "text-muted-foreground"}`}>
+                {loading ? "Checking website…" : websiteStatus === "reachable" ? `Website reachable · HTTP ${check?.website.httpStatus}` : websiteStatus === "access_restricted" ? `Website responds · access restricted · HTTP ${check?.website.httpStatus}` : websiteStatus === "unavailable" ? "Website unavailable" : "Website not checked"}
               </div>
               <div className="mt-1 text-[10px] text-muted-foreground">
                 {check?.kind === "module" ? "Module API · not verified" : "Workspace UI · reachability only"}
