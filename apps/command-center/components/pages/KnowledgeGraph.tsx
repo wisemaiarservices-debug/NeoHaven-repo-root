@@ -5,7 +5,7 @@ import { PageHeader } from "./Agriculture";
 export default function KnowledgeGraph() {
   return (
     <AppShell>
-      <PageHeader module="Knowledge Graph" title="Context & asset registry" subtitle="Every recommendation NOVA produces is grounded in this asset graph and reasoning chain." />
+      <PageHeader module="Knowledge Graph" title="Evidence-backed asset registry" subtitle="Registered assets and relationships will be shown here once verified site records are available." />
       <KnowledgeGraphPanel />
     </AppShell>
   );
