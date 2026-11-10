@@ -1,43 +1,42 @@
-import { knowledgeGraph } from "@/data/mockData";
 import { Panel } from "./Panel";
-import { ArrowRight } from "lucide-react";
+import { Database, Link2, ShieldCheck } from "lucide-react";
+
+const requiredFields = [
+  "Asset identifier and asset type",
+  "Site identifier and physical location",
+  "Parent-child and system relationships",
+  "Capacity, unit and technical specification",
+  "Source identity and verification status",
+  "Last observed timestamp and quality flags",
+];
 
 export function KnowledgeGraphPanel() {
   return (
     <Panel
       module="Knowledge Graph"
-      title="Context chain & asset registry"
-      subtitle="Illustrative asset registry · no live site assets have been registered"
+      title="Evidence-backed asset registry"
+      subtitle="No live site assets or verified relationships have been registered."
     >
-      <div className="flex flex-wrap items-center gap-1.5 mb-4">
-        {knowledgeGraph.chain.map((step, i) => (
-          <span key={i} className="chip border-border/60 bg-panel-elevated/60 text-foreground/85 normal-case tracking-normal text-[11px]">
-            {step.replace(/^→\s*/, "")}
-            {i < knowledgeGraph.chain.length - 1 && <ArrowRight className="w-3 h-3 text-aurora-blue ml-1" />}
-          </span>
+      <div className="rounded-md border border-border/60 bg-panel-elevated/40 p-4">
+        <div className="flex items-center gap-2 text-sm font-semibold">
+          <Database className="h-4 w-4 text-aurora-blue" />
+          Registry is empty
+        </div>
+        <p className="mt-1 text-xs leading-5 text-muted-foreground">
+          The previous asset list and reasoning chain were illustrative fixtures. They are not used as evidence for current NOVA Core decisions and are no longer presented as registered site data.
+        </p>
+      </div>
+      <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2">
+        {requiredFields.map((field) => (
+          <div key={field} className="flex items-start gap-2 rounded-md border border-border/50 p-2.5 text-xs text-muted-foreground">
+            <ShieldCheck className="mt-0.5 h-3.5 w-3.5 shrink-0 text-aurora-blue" />
+            {field}
+          </div>
         ))}
       </div>
-      <div className="rounded-md border border-border/60 overflow-hidden">
-        <table className="w-full text-[12px]">
-          <thead className="bg-panel-elevated/80 text-muted-foreground text-[10px] uppercase tracking-wider">
-            <tr>
-              <th className="text-left px-3 py-2">Asset ID</th>
-              <th className="text-left px-3 py-2">Type</th>
-              <th className="text-left px-3 py-2">Capacity</th>
-              <th className="text-left px-3 py-2">Zone / Location</th>
-            </tr>
-          </thead>
-          <tbody>
-            {knowledgeGraph.assets.map(a => (
-              <tr key={a.id} className="border-t border-border/40 hover:bg-panel-elevated/60">
-                <td className="px-3 py-1.5 font-mono text-aurora-blue">{a.id}</td>
-                <td className="px-3 py-1.5">{a.type}</td>
-                <td className="px-3 py-1.5 font-mono">{a.capacity}</td>
-                <td className="px-3 py-1.5 text-muted-foreground">{a.zone}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <div className="mt-3 flex items-start gap-2 rounded-md border border-aurora-blue/25 bg-aurora-blue/5 p-3 text-[11px] leading-5 text-muted-foreground">
+        <Link2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-aurora-blue" />
+        Relationships and reasoning paths will be generated from registered records and explicit rules, not hardcoded scenario narratives.
       </div>
     </Panel>
   );
