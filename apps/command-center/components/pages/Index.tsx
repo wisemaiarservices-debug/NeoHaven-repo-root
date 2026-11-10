@@ -10,6 +10,7 @@ import { KnowledgeGraphPanel } from "@/components/nova/KnowledgeGraphPanel";
 import { RecommendationsPanel } from "@/components/nova/RecommendationsPanel";
 import { ImpactSummary } from "@/components/nova/ImpactSummary";
 import { ProductStatusPanel } from "@/components/nova/ProductStatusPanel";
+import { CoreConnectivityPanel } from "@/components/nova/CoreConnectivityPanel";
 import { kpis } from "@/data/mockData";
 
 const Index = () => (
@@ -24,6 +25,8 @@ const Index = () => (
           ))}
         </div>
       </section>
+
+      <CoreConnectivityPanel />
 
       <ProductStatusPanel />
 
