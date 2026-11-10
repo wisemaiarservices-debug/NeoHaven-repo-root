@@ -26,6 +26,22 @@ export const productModules = [
     pr: "",
   },
   {
+    name: "Operator Workspace",
+    product: "NOVA OS · Operations",
+    status: "Workspace link · access check required",
+    summary: "Operator-facing operating workspace for site review and approval-gated workflows.",
+    href: "https://nova-os-pied.vercel.app/os",
+    pr: "",
+  },
+  {
+    name: "Engineering Console",
+    product: "NOVA OS · Engineering",
+    status: "Console link · access check required",
+    summary: "Internal workbench for API registry, datasets, experiments, and deployment review.",
+    href: "https://nova-os-pied.vercel.app/console",
+    pr: "",
+  },
+  {
     name: "NOVA Agriculture / NeoAgro",
     product: "Agriculture",
     status: "UI available · API unverified",
