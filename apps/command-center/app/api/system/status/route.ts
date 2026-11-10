@@ -8,6 +8,14 @@ const CORE_API_URL = (
   "https://nova-core-api.neohaven.workers.dev"
 ).replace(/\/$/, "");
 
+const platformTargets = {
+  operator: { kind: "workspace", url: "https://nova-os-pied.vercel.app/os" },
+  engineering: { kind: "workspace", url: "https://nova-os-pied.vercel.app/console" },
+  neoagro: { kind: "module", url: "https://neoagro-six.vercel.app" },
+  neogrid: { kind: "module", url: "https://neogrid-sigma.vercel.app" },
+  neocell: { kind: "module", url: "https://neocell-ebon.vercel.app" },
+} as const;
+
 async function readEndpoint(path: string) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 4000);
@@ -31,10 +39,38 @@ async function readEndpoint(path: string) {
   }
 }
 
+async function checkWebsite(url: string) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 4000);
+  try {
+    const response = await fetch(url, {
+      method: "GET",
+      cache: "no-store",
+      redirect: "follow",
+      signal: controller.signal,
+      headers: { accept: "text/html" },
+    });
+    await response.body?.cancel().catch(() => undefined);
+    return {
+      status: response.ok ? "reachable" : "unavailable",
+      httpStatus: response.status,
+    };
+  } catch (error) {
+    return {
+      status: "unavailable",
+      httpStatus: 0,
+      error: error instanceof Error && error.name === "AbortError" ? "timeout" : "unreachable",
+    };
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
 export async function GET() {
-  const [health, storage] = await Promise.all([
+  const [health, storage, ...websiteChecks] = await Promise.all([
     readEndpoint("/health"),
     readEndpoint("/api/v1/storage/status"),
+    ...Object.values(platformTargets).map((target) => checkWebsite(target.url)),
   ]);
 
   const coreOnline = health.ok && health.body?.status === "ok";
@@ -45,6 +81,17 @@ export async function GET() {
       : storage.statusCode === 0
         ? "unreachable"
         : "unavailable";
+
+  const platformEntries = Object.entries(platformTargets).map(([id, target], index) => [
+    id,
+    {
+      kind: target.kind,
+      url: target.url,
+      website: websiteChecks[index],
+      apiStatus: target.kind === "module" ? "unverified" : "not_applicable",
+    },
+  ]);
+  const platforms = Object.fromEntries(platformEntries);
 
   return NextResponse.json(
     {
@@ -64,14 +111,10 @@ export async function GET() {
             ? "The read-only storage status route is not present on the deployed Worker yet."
             : "Storage readiness could not be verified.",
       },
-      modules: {
-        neoagro: { status: "ui_linked_api_unverified", url: "https://neoagro-six.vercel.app" },
-        neogrid: { status: "ui_linked_api_unverified", url: "https://neogrid-sigma.vercel.app" },
-        neocell: { status: "ui_linked_api_unverified", url: "https://neocell-ebon.vercel.app" },
-      },
+      platforms,
       dataTrust: {
         liveTelemetry: false,
-        note: "A healthy API process does not prove that field sensors, module APIs, or persistent observations are connected. Existing dashboard charts remain illustrative scenario fixtures until verified source data is ingested.",
+        note: "Website reachability confirms only that a web response was received. It does not verify module APIs, field sensors, device health, persistent observations, or live telemetry. Dashboard scenario fixtures remain illustrative until verified source data is ingested.",
       },
     },
     { headers: { "Cache-Control": "no-store, max-age=0" } },
