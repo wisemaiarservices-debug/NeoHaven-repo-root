@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   LayoutDashboard, Sprout, Zap, Cpu, Brain, Boxes, Network,
-  ListChecks, BarChart3, Settings, Presentation, CircleDot, WifiOff,
+  ListChecks, BarChart3, Settings, Presentation, CircleDot,
 } from "lucide-react";
 import type { ReactNode } from "react";
 import { site, services } from "@/data/mockData";
@@ -25,7 +25,6 @@ const nav = [
 
 export function AppShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
-  const offline = false; // toggle to true to simulate offline mode (still renders)
   const degraded = services.some(s => s.status === "degraded");
 
   return (
@@ -80,19 +79,9 @@ export function AppShell({ children }: { children: ReactNode }) {
             <span>{site.name}</span>
           </div>
           <div className="ml-auto flex items-center gap-2">
-            {offline ? (
-              <span className="chip border-alert-red/40 text-alert-red bg-alert-red/10">
-                <WifiOff className="w-3 h-3" /> Offline · cached
-              </span>
-            ) : degraded ? (
-              <span className="chip border-solar-gold/40 text-solar-gold bg-solar-gold/10">
-                <CircleDot className="w-3 h-3" /> Degraded · 1 service
-              </span>
-            ) : (
-              <span className="chip border-neo-green/40 text-neo-green bg-neo-green/10">
-                <CircleDot className="w-3 h-3" /> All systems nominal
-              </span>
-            )}
+            <Link href="/#live-integration" className="chip border-solar-gold/40 text-solar-gold bg-solar-gold/10 hover:border-aurora-blue/60">
+              <CircleDot className="w-3 h-3" /> Integration status · verify
+            </Link>
             <span className="text-[11px] text-muted-foreground font-mono">{site.timestamp}</span>
           </div>
         </header>
