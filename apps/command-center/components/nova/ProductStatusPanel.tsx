@@ -14,9 +14,9 @@ export function ProductStatusPanel() {
       <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <div className="stat-label">Product UI integration</div>
-          <h2 className="mt-1 text-xl font-semibold tracking-tight">Working module links and readiness</h2>
+          <h2 className="mt-1 text-xl font-semibold tracking-tight">Product workspaces and service boundaries</h2>
           <p className="mt-1 text-sm text-muted-foreground">
-            NOVA OS routes operators to ready product modules with advisory, approval-gated recommendations.
+            These links open the product interfaces. Their API and device connections are reported separately and are not inferred from website availability.
           </p>
         </div>
         <span className="chip border-neo-green/40 text-neo-green bg-neo-green/10">
