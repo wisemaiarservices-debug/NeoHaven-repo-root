@@ -20,8 +20,8 @@ export const productModules = [
   {
     name: "NOVA Command Center",
     product: "NOVA OS",
-    status: "ready",
-    summary: "Decision intelligence for sustainable infrastructure operations.",
+    status: "UI available · API status shown separately",
+    summary: "Command Center interface. Live service, storage and data-provider status are reported by their dedicated checks.",
     href: "/",
     pr: "",
   },
