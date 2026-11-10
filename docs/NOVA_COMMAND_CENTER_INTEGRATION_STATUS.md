@@ -13,7 +13,7 @@
 - NOVA Core public Worker: `https://nova-core-api.neohaven.workers.dev`
 - Health route: `GET /health`; the Worker health endpoint was verified by GitHub Actions on 2026-11-10.
 - NASA POWER daily retrieval was verified through NOVA Core by the live smoke workflow on 2026-11-10. Its data is gridded/model-derived, not a local sensor reading.
-- The Command Center server route `GET /api/system/status` checks NOVA Core health and probes `GET /api/v1/storage/status`. It reports the actual response state and does not treat a 404 as connected storage.
+- The Command Center server route `GET /api/system/status` checks NOVA Core health and probes `GET /api/v1/storage/status`. It also performs bounded, no-store website reachability checks for the Operator Workspace, Engineering Console, NeoAgro, NeoGrid and NeoCell. HTTP 401/403 is reported as access-restricted (the site responded, but access is gated); other non-success responses and timeouts are reported separately. These checks do not test module API routes or device feeds.
 
 ## Product navigation versus API integration
 
@@ -25,7 +25,7 @@
 | Operator Workspace | `https://nova-os-pied.vercel.app/os` | Navigation link only |
 | Engineering Console | `https://nova-os-pied.vercel.app/console` | Navigation link only |
 
-A successful website navigation or API process health check is not proof of authenticated module-to-core ingestion, live field telemetry, or persistent observation storage.
+Website reachability is only an HTTP response check. A protected 401/403 response is classified as access-restricted, not as a failed host. A successful website response or API process health check is not proof of authenticated module-to-core ingestion, live field telemetry, or persistent observation storage.
 
 ## Current dashboard data classification
 
@@ -45,4 +45,4 @@ The NeoAgro screen now provides a live NASA POWER daily retrieval workflow throu
 
 ## Scope of this change
 
-This PR adds live NOVA Core process-health and storage-status visibility, product/workspace navigation, and honest data-trust messaging. It does not claim that all panels are live or that the whole ecosystem is already connected.
+This PR adds live NOVA Core process-health and storage-status visibility, bounded website reachability checks for all five operator/product destinations, product/workspace navigation, and honest data-trust messaging. It does not claim that module APIs, field telemetry, or all dashboard panels are live.
