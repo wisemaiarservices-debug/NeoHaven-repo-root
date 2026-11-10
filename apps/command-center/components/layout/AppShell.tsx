@@ -7,7 +7,7 @@ import {
   ListChecks, BarChart3, Settings, Presentation, CircleDot,
 } from "lucide-react";
 import type { ReactNode } from "react";
-import { site, services } from "@/data/mockData";
+import { site } from "@/data/mockData";
 
 const nav = [
   { to: "/",               label: "Overview",         icon: LayoutDashboard },
@@ -25,7 +25,6 @@ const nav = [
 
 export function AppShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
-  const degraded = services.some(s => s.status === "degraded");
 
   return (
     <div className="min-h-screen flex w-full text-foreground">
@@ -66,7 +65,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             <CircleDot className="w-3 h-3 text-neo-green animate-pulse-soft" />
             <span>NOVA Core v0.9.3</span>
           </div>
-          <div>{site.operator}</div>
+          <div>Live integrations shown separately</div>
         </div>
       </aside>
 
@@ -74,7 +73,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       <div className="flex-1 flex flex-col min-w-0">
         <header className="h-12 border-b border-border/70 bg-midnight/60 backdrop-blur-md flex items-center px-5 gap-4">
           <div className="flex items-center gap-2 text-[12px] text-muted-foreground font-mono">
-            <span className="text-foreground/80">{site.code}</span>
+            <span className="text-foreground/80">NOVA OS</span>
             <span>/</span>
             <span>{site.name}</span>
           </div>
@@ -82,7 +81,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             <Link href="/#live-integration" className="chip border-solar-gold/40 text-solar-gold bg-solar-gold/10 hover:border-aurora-blue/60">
               <CircleDot className="w-3 h-3" /> Integration status · verify
             </Link>
-            <span className="text-[11px] text-muted-foreground font-mono">{site.timestamp}</span>
+            <span className="text-[11px] text-muted-foreground font-mono">Operator approval required</span>
           </div>
         </header>
 
