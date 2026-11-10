@@ -1,58 +1,43 @@
 import { Panel } from "./Panel";
-import { Sun, BatteryMedium, Droplet, Sprout, Leaf } from "lucide-react";
+import { Sun, BatteryMedium, Droplet, Sprout, Radio } from "lucide-react";
+
+const layers = [
+  { name: "Generation", detail: "Solar assets not registered", icon: Sun },
+  { name: "Storage", detail: "Battery assets not registered", icon: BatteryMedium },
+  { name: "Water systems", detail: "Pumps and meters not registered", icon: Droplet },
+  { name: "Agriculture", detail: "Field zones not registered", icon: Sprout },
+  { name: "Connectivity", detail: "Gateways and sensors not connected", icon: Radio },
+];
 
 export function DigitalTwinPanel() {
   return (
     <Panel
       module="Digital Twin"
-      title="Digital twin · target asset flow"
-      subtitle="Illustrative topology only · no selected site or live asset feed"
+      title="Site topology workspace"
+      subtitle="The topology is a target architecture, not a live digital twin. No site or assets are currently assigned."
     >
-      <div className="relative grid-bg rounded-md p-5 border border-border/50 bg-midnight/40 overflow-hidden">
-        <div className="absolute inset-x-0 top-1/2 h-px scan-line animate-scan opacity-50" />
-        <div className="relative grid grid-cols-5 gap-2 items-center">
-          <Node icon={<Sun className="w-5 h-5" />} label="Solar array" value="No live data" color="solar-gold" />
-          <Arrow value="Not connected" />
-          <Node icon={<BatteryMedium className="w-5 h-5" />} label="Battery" value="No live data" color="aurora-blue" />
-          <Arrow value="Not connected" />
-          <Node icon={<Droplet className="w-5 h-5" />} label="Pump · 5.5 kW" value="Not connected" color="aurora-blue" />
+      <div className="rounded-md border border-border/60 bg-midnight/40 p-4">
+        <div className="mb-3 text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
+          Required asset domains · connection state
         </div>
-        <div className="relative grid grid-cols-5 gap-2 items-center mt-4">
-          <div />
-          <div />
-          <div />
-          <Arrow value="No live data" />
-          <Node icon={<Sprout className="w-5 h-5" />} label="Field zones" value="No site assigned" color="neo-green" />
-        </div>
-        <div className="relative grid grid-cols-5 gap-2 items-center mt-4">
-          <div />
-          <div />
-          <div />
-          <div />
-          <div className="flex justify-end pr-1">
-            <div className="flex items-center gap-1.5 text-[11px] text-neo-green">
-              <Leaf className="w-3.5 h-3.5" /> No measured yield impact
+        <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 xl:grid-cols-3">
+          {layers.map(({ name, detail, icon: Icon }) => (
+            <div key={name} className="rounded-md border border-border/50 bg-panel-elevated/60 p-3">
+              <div className="flex items-center gap-2 text-sm font-medium">
+                <Icon className="h-4 w-4 text-aurora-blue" />
+                {name}
+              </div>
+              <div className="mt-2 text-[11px] text-muted-foreground">{detail}</div>
+              <div className="mt-2 text-[10px] font-mono uppercase tracking-wide text-solar-gold">
+                Not connected
+              </div>
             </div>
-          </div>
+          ))}
         </div>
       </div>
+      <p className="mt-3 text-[11px] leading-5 text-muted-foreground">
+        A live twin will be rendered only from registered site and asset records with source identity, timestamps, units and quality metadata. No capacities, operating states or energy flows are inferred from this target layout.
+      </p>
     </Panel>
-  );
-}
-
-function Node({ icon, label, value, color }: { icon: React.ReactNode; label: string; value: string; color: string }) {
-  return (
-    <div className={`rounded-md border border-${color}/40 bg-panel-elevated/80 p-2.5 shadow-panel`}>
-      <div className={`flex items-center gap-2 text-${color}`}>{icon}<span className="text-[11px] uppercase tracking-wider">{label}</span></div>
-      <div className="mt-1 text-[13px] font-semibold font-mono">{value}</div>
-    </div>
-  );
-}
-function Arrow({ value }: { value: string }) {
-  return (
-    <div className="flex flex-col items-center text-[10px] text-muted-foreground font-mono">
-      <span>{value}</span>
-      <div className="h-px w-full bg-gradient-to-r from-aurora-blue/0 via-aurora-blue/70 to-aurora-blue/0 my-1" />
-    </div>
   );
 }
