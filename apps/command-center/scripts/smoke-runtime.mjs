@@ -26,6 +26,13 @@ for (const id of ["operator", "engineering", "neoagro", "neogrid", "neocell"]) {
 assert(status.dataTrust?.liveTelemetry === false, "System status must not claim live field telemetry");
 assert(typeof status.dataTrust.note === "string" && status.dataTrust.note.length > 20, "Data trust explanation must be present");
 
+const novaCorePage = await fetch(`${base}/nova-core`, { cache: "no-store" });
+assert(novaCorePage.ok, `NOVA Core page returned HTTP ${novaCorePage.status}`);
+const novaCoreHtml = await novaCorePage.text();
+assert(novaCoreHtml.includes("One intelligence core") && novaCoreHtml.includes("adaptable client profiles"), "NOVA Core page must render adaptive profile readiness");
+assert(novaCoreHtml.includes("Cross-client generalization") && novaCoreHtml.includes("Not evaluated"), "NOVA Core page must disclose unvalidated generalization");
+assert(novaCoreHtml.includes("Unknown specifications remain unknown"), "NOVA Core page must disclose the unknown-specification abstention rule");
+
 const invalidWeatherResponse = await fetch(`${base}/api/data/weather/nasa-power/daily`, { cache: "no-store" });
 assert(invalidWeatherResponse.status === 400, `Weather proxy must reject missing coordinates/dates; got HTTP ${invalidWeatherResponse.status}`);
 
