@@ -9,17 +9,43 @@ on:
 jobs:
   web-build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+          token: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
-      - name: Install dependencies
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: apps/command-center/package-lock.json
+      - name: Regenerate npm lockfile
         working-directory: apps/command-center
         run: npm install
+      - name: Persist generated lockfile
+        run: |
+          if ! git diff --quiet -- apps/command-center/package-lock.json; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add apps/command-center/package-lock.json
+            git commit -m "chore(command-center): add patched npm dependency lockfile"
+            git push origin "HEAD:${{ github.head_ref || github.ref_name }}"
+          fi
+      - name: Test product preview links
+        working-directory: apps/command-center
+        run: npm test
       - name: Typecheck
         working-directory: apps/command-center
         run: npm run typecheck
+      - name: Audit production dependencies
+        working-directory: apps/command-center
+        run: npm audit --omit=dev --audit-level=high
+      - name: Report full dependency audit
+        working-directory: apps/command-center
+        continue-on-error: true
+        run: npm audit --audit-level=high
       - name: Build
         working-directory: apps/command-center
         run: npm run build
