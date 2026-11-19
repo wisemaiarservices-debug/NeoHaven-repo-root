@@ -173,3 +173,29 @@ A direct read of the current `main` source in each repository found additional g
 7. Reassess product-by-product only after deployed revision, authenticated data path, source provenance, role scope, recovery and two-tenant isolation are demonstrated.
 
 These are source-code observations from the named default-branch files. No live service API, customer tenant, device, robot, database, provider account, secrets or production data was accessed. The findings do not establish that a particular deployment is serving the exact default-branch revision inspected.
+
+
+## Preview correction evidence and remaining ecosystem gates (2026-11-20)
+
+The default-branch source findings above remain accurate for `main`: the following corrections are in separate draft PR branches and have **not** been merged or promoted. Their preview checks demonstrate presentational and build behavior only, not production integration.
+
+### Draft preview corrections verified
+
+- **Command Center — PR #26**, exact head `35d6ab7dab02532b3911aaa87542a6959c3611e2`: persistent scenario/preview-only labels, removal of false live health claims, and product cards now link to the labeled preview branches of NeoAgro, NeoGrid and NeoCell rather than older production aliases. Frontend upgraded to Next.js `16.4.6` / React `19.3.1`; committed npm lockfile, patched `react-is` and `source-map-js`; product-link tests, TypeScript, production/full npm audits (zero vulnerabilities) and production build pass. Vercel preview is READY; landing page and all 12 app routes return HTTP 200.
+- **NeoAgro — PR #27**, exact head `5532fd1338cd0c6003c995c855891d69ff47dadb`: persistent demo provenance labels and no live telemetry claims. Frontend upgraded to Next.js `16.4.6` / React `19.3.1`, with patched `source-map-js@1.2.4`; pnpm lockfile committed. API smoke, web regression tests, TypeScript, production/full dependency audits (zero vulnerabilities) and build pass. Vercel preview is READY; six product routes return HTTP 200.
+- **NeoGrid — PR #9**, exact head `b945699d0ec969d051ea63f12111d7cb45117cb2`: persistent demo scenario label, deterministic fixture provenance, no live SCADA/telemetry claims; CI and preview checks pass. Static bundle inspection confirms demo, synthetic and not-connected markers.
+- **NeoCell — PR #10**, exact head `9dbe7618b8f60b3561ea1cb29eefdaaf740e3911`: persistent demo scenario label, synthetic fixture and API-health boundary; CI and preview checks pass. Static bundle inspection confirms demo/synthetic/not-connected markers.
+- **NOVA FieldOps — PR #5**, exact head `a34b312c69a32d5ccc4b180d3e940b4f94a39f7b`: persistent scenario labels, disconnected approval controls disabled, safety remains not assessed, physical execution disabled. TanStack Start security update and lockfile regenerated; CI and Vercel preview pass.
+
+All five PRs remain draft/open/unmerged. Preview aliases are for presentation and navigation only; production deployments have not been updated by these changes. Vercel READY and HTTP 200 prove deployability and route response, not user-authenticated workflows or operational integration.
+
+### Remaining blockers before real Core/product integration
+
+1. NOVA Core private tenant gateway and private API must be deployed and verified behind the intended Cloudflare Access policy, dedicated custom hostname, exact service bindings, secrets, D1 schema/migrations, CORS and route boundaries. Current repository configuration and CI do not prove those live settings exist.
+2. Each product needs real tenant/site/asset/source registration, provider/device identity and exact source/module grants. No customer/provider credentials, real telemetry, calibration evidence or site-specific mappings are provisioned in these previews.
+3. NeoAgro/NeoGrid/NeoCell observation adapters remain disabled/unwired; synthetic demo fixtures must never be sent as field observations. Core acceptance, verification, audit and idempotency need controlled staging proof.
+4. FieldOps needs a durable actor-bound, tenant/site-scoped approval service and independently verified safety inputs before any mission can be approved. Physical actuation remains disabled.
+5. NOVA OS Operator Workspace and Engineering Console still need connection to the verified private gateway and real end-to-end authorization, recovery and two-tenant isolation tests. A website or Command Center preview does not satisfy these product-console requirements.
+6. Independent security review and controlled two-tenant synthetic staging acceptance remain mandatory before any production promotion. If free-tier limits cannot support a safe staging/deployment plan, stop without paid upgrades or overages.
+
+No PR was merged, no production deployment or migration was performed, and no secrets, provider accounts, customer data, device telemetry, paid resources or Cloudflare policies were changed by this verification.
