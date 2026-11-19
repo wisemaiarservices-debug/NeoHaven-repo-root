@@ -22,24 +22,25 @@ NOVA Core is the shared platform foundation. NeoAgro, NeoGrid and NeoCell are co
 
 Team: `NeoHavenUrbanLabs`. The connected Vercel team reports the Hobby plan. No upgrade or paid resource is authorized by this inventory.
 
-The following rows come from the current Vercel project and deployment metadata read on 2026-11-20. **READY** means Vercel finished building that revision. `target: null` means the deployment metadata does not identify it as a production deployment; its alias is a branch-specific preview URL. Project domains listed in project settings must not be mistaken for aliases assigned to the latest deployment.
+The following rows come from read-only Vercel deployment queries on 2026-11-20. Production-target deployment history was queried separately from each project's latest overall deployment. This distinction matters: most projects have a READY production deployment on `main` and a newer READY feature/docs preview. The preview does not replace the production deployment.
 
-| Vercel project | Linked Git repository | Latest observed deployment | Git ref / commit | Deployment target |
-|---|---|---|---|---|
-| `neoagro` | `neoagro-platform` | READY — [preview](https://neoagro-git-fix-neoagro-core-ingest-876540-neo-haven-urban-labs.vercel.app) | `fix/neoagro-core-ingestion-host-allowlist` / `8a376177026235c4d80aee7b619ae831c5effa8e` | Preview (`target: null`) |
-| `neogrid` | `neogrid-platform` | READY — [preview](https://neogrid-git-feat-neogrid-core-inges-f4b6b5-neo-haven-urban-labs.vercel.app) | `feat/neogrid-core-ingestion-current-provenance` / `72bdd31e68dbd3a9c06c6ec2b7900eb5e8cab1c7` | Preview (`target: null`) |
-| `neocell` | `neocell-platform` | READY — [preview](https://neocell-git-feat-neocell-core-inges-6c05bd-neo-haven-urban-labs.vercel.app) | `feat/neocell-core-ingestion-current-provenance` / `875abfc43240d872bcafd558fce464e78d5a1802` | Preview (`target: null`) |
-| `nova-command-center` | `NeoHaven-repo-root` | READY — [preview](https://nova-command-center-git-docs-ecosys-6e30c4-neo-haven-urban-labs.vercel.app) | `docs/ecosystem-deployment-boundaries-v1` / `48264e84d096c2bff16cf7f517ba25b238e47e12` | Preview (`target: null`) |
-| `nova-fieldops` | `nova-fieldops` | READY — [production deployment](https://nova-fieldops-o8d8wfuk5-neo-haven-urban-labs.vercel.app) | `main` / `92e2bc25f621bc1b23a7399afaecd646596f2f6d` | Production |
-| `nova-os` | `neohaven-nova-os-website` | READY — [preview](https://nova-os-git-docs-nova-os-gateway-en-d178c7-neo-haven-urban-labs.vercel.app) | `docs/nova-os-gateway-env-inventory-v1` / `13f2f030d2d936854a9ebc4401bcf86f4e84e97a` | Preview (`target: null`) |
-| `neohaven-nova-os-website` | `neohaven-nova-os-website` | READY — [preview](https://neohaven-nova-os-website-git-docs-n-c341db-neo-haven-urban-labs.vercel.app) | `docs/nova-os-gateway-env-inventory-v1` / `13f2f030d2d936854a9ebc4401bcf86f4e84e97a` | Preview (`target: null`) |
+| Vercel project | Linked Git repository | Latest production deployment | Latest overall deployment |
+|---|---|---|---|
+| `neoagro` | `neoagro-platform` | READY — [production](https://neoagro-1xo0l9yif-neo-haven-urban-labs.vercel.app), `main` / `d86a367fb364d16e45a0debe921fc0128183dd08` | READY preview — [feature branch](https://neoagro-git-fix-neoagro-core-ingest-876540-neo-haven-urban-labs.vercel.app), `fix/neoagro-core-ingestion-host-allowlist` / `8a376177026235c4d80aee7b619ae831c5effa8e` |
+| `neogrid` | `neogrid-platform` | READY — [production](https://neogrid-k9now1nqc-neo-haven-urban-labs.vercel.app), `main` / `e829e7124b424ddf0028b37affcf50d6c48e41ef` | READY preview — [feature branch](https://neogrid-git-feat-neogrid-core-inges-f4b6b5-neo-haven-urban-labs.vercel.app), `feat/neogrid-core-ingestion-current-provenance` / `72bdd31e68dbd3a9c06c6ec2b7900eb5e8cab1c7` |
+| `neocell` | `neocell-platform` | READY — [production](https://neocell-kc1bqu90c-neo-haven-urban-labs.vercel.app), `main` / `92803df9189e31418a326beedbd59a952b118181` | READY preview — [feature branch](https://neocell-git-feat-neocell-core-inges-6c05bd-neo-haven-urban-labs.vercel.app), `feat/neocell-core-ingestion-current-provenance` / `875abfc43240d872bcafd558fce464e78d5a1802` |
+| `nova-command-center` | `NeoHaven-repo-root` | READY — [production](https://nova-command-center-4d3pi8wz7-neo-haven-urban-labs.vercel.app), `main` / `efd90880c3eb3a5cadb47ae652caadf02b185983` | READY preview — [ecosystem-map branch](https://nova-command-center-git-docs-ecosys-6e30c4-neo-haven-urban-labs.vercel.app), `docs/ecosystem-deployment-boundaries-v1` / `48264e84d096c2bff16cf7f517ba25b238e47e12` |
+| `nova-fieldops` | `nova-fieldops` | READY — [production](https://nova-fieldops-o8d8wfuk5-neo-haven-urban-labs.vercel.app), `main` / `92e2bc25f621bc1b23a7399afaecd646596f2f6d` | Same as latest production deployment |
+| `nova-os` | `neohaven-nova-os-website` | READY — [production](https://nova-ekeyzxn7g-neo-haven-urban-labs.vercel.app), `main` / `2951ef88be4a285e6076f629c71a8e4e20aec667` | READY preview — [website docs branch](https://nova-os-git-docs-nova-os-gateway-en-d178c7-neo-haven-urban-labs.vercel.app), `docs/nova-os-gateway-env-inventory-v1` / `13f2f030d2d936854a9ebc4401bcf86f4e84e97a` |
+| `neohaven-nova-os-website` | `neohaven-nova-os-website` | READY — [production](https://neohaven-nova-os-website-g1vnbix4n-neo-haven-urban-labs.vercel.app), `main` / `f57df387359c36ee256f9b9f8c650e743ab1badc` | READY preview — [website docs branch](https://neohaven-nova-os-website-git-docs-n-c341db-neo-haven-urban-labs.vercel.app), `docs/nova-os-gateway-env-inventory-v1` / `13f2f030d2d936854a9ebc4401bcf86f4e84e97a` |
 
-Important production/preview distinction:
+Important deployment interpretation:
 
-- Vercel project metadata reports `live: false` for all seven projects in this inspection. Do not interpret that field alone as proof a deployment is broken; it is not a substitute for deployment target, domain alias and runtime checks.
-- Six latest deployments above have `target: null` and only branch-preview aliases. Only FieldOps' latest deployment explicitly has `target: production` and the three listed aliases.
-- The `nova-os` project has the domain `nova-os-pied.vercel.app` attached at project level, but the latest deployment inspected is a preview on the documentation branch. Prior audit evidence says the production alias was still on the older website-only `main` revision `2951ef88be4a285e6076f629c71a8e4e20aec667`. Do not infer that the current preview has replaced that production deployment.
-- The `nova-os` Vercel project is linked to the public website repository, not the private `NovaOS` repository. The private repository's CI and source code are separate evidence.
+- Each of the seven projects has at least one READY deployment explicitly targeting production in Vercel's production deployment history.
+- Several also have newer READY previews on feature or documentation branches. Those previews do not become production automatically and must not be described as live production updates.
+- The `nova-os` Vercel project is linked to the public website repository, not the private `NovaOS` repository. Its production deployment at the time of inspection is the older website `main` revision `2951ef88be4a285e6076f629c71a8e4e20aec667`; it does not prove that the private NOVA OS application repository is deployed.
+- Project-level domain lists and deployment-specific aliases are different things. The production history above is based on deployment `target: production`; preview URLs are taken from the latest deployment's alias list.
+- Project metadata reports `live: false` on these project objects. This field is not a replacement for the explicit production deployment target and alias history; do not infer product availability or failure from it alone.
 - READY Vercel status proves only that Vercel completed a deployment. It does not prove Core connectivity, live data, tenant isolation, authorization, end-to-end workflows, or operational readiness.
 
 ## Environment metadata inventory
