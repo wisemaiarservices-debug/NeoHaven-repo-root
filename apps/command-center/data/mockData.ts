@@ -30,7 +30,7 @@ export const productModules = [
     product: "Agriculture",
     status: "preview",
     summary: "Agrivoltaic intelligence for crop health, water efficiency, energy coordination, and impact reporting.",
-    href: "https://neoagro-six.vercel.app",
+    href: "https://neoagro-git-fix-neoagro-demo-proven-0f0f19-neo-haven-urban-labs.vercel.app",
     pr: "",
   },
   {
@@ -38,7 +38,7 @@ export const productModules = [
     product: "Energy",
     status: "preview",
     summary: "Energy intelligence for solar production, battery operations, grid coordination, carbon impact, and operator-approved optimization.",
-    href: "https://neogrid-sigma.vercel.app",
+    href: "https://neogrid-git-fix-neogrid-demo-proven-a503a5-neo-haven-urban-labs.vercel.app",
     pr: "",
   },
   {
@@ -46,7 +46,7 @@ export const productModules = [
     product: "Infrastructure",
     status: "preview",
     summary: "AI-ready infrastructure readiness for gateways, sensors, power, water, edge compute, and field deployment planning.",
-    href: "https://neocell-ebon.vercel.app",
+    href: "https://neocell-git-fix-neocell-demo-proven-82fc89-neo-haven-urban-labs.vercel.app",
     pr: "",
   },
   {
