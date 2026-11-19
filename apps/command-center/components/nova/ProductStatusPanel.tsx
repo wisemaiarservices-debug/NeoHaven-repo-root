@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ExternalLink, ShieldCheck } from "lucide-react";
+import { ExternalLink, Info } from "lucide-react";
 import { productModules } from "@/data/mockData";
 
 const statusClass = (status: string) => {
@@ -13,14 +13,14 @@ export function ProductStatusPanel() {
     <section className="glass-panel p-4">
       <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <div className="stat-label">Product UI integration</div>
-          <h2 className="mt-1 text-xl font-semibold tracking-tight">Working module links and readiness</h2>
+          <div className="stat-label">Product previews · navigation only</div>
+          <h2 className="mt-1 text-xl font-semibold tracking-tight">Linked product experiences</h2>
           <p className="mt-1 text-sm text-muted-foreground">
-            NOVA OS routes operators to ready product modules with advisory, approval-gated recommendations.
+            These links open separate product applications. This panel does not verify live Core connectivity, tenant authorization, telemetry, or module readiness.
           </p>
         </div>
-        <span className="chip border-neo-green/40 text-neo-green bg-neo-green/10">
-          <ShieldCheck className="h-3.5 w-3.5" /> Operator approval mode
+        <span className="chip border-solar-gold/40 text-solar-gold bg-solar-gold/10">
+          <Info className="h-3.5 w-3.5" /> Preview · no live integration claim
         </span>
       </div>
 

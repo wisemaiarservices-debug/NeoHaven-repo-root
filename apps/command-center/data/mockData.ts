@@ -10,17 +10,17 @@ export const site = {
 };
 
 export const services = [
-  { id: "core", name: "NOVA Core AI", status: "online", latencyMs: 84 },
-  { id: "agro", name: "NeoAgro", status: "online", latencyMs: 112 },
-  { id: "grid", name: "NeoGrid", status: "online", latencyMs: 96 },
-  { id: "cell", name: "NeoCell", status: "degraded", latencyMs: 218 },
+  { id: "core", name: "NOVA Core AI", status: "demo", latencyMs: 84 },
+  { id: "agro", name: "NeoAgro", status: "demo", latencyMs: 112 },
+  { id: "grid", name: "NeoGrid", status: "demo", latencyMs: 96 },
+  { id: "cell", name: "NeoCell", status: "demo", latencyMs: 218 },
 ] as const;
 
 export const productModules = [
   {
     name: "NOVA Command Center",
     product: "NOVA OS",
-    status: "ready",
+    status: "preview",
     summary: "Decision intelligence for sustainable infrastructure operations.",
     href: "/",
     pr: "",
@@ -28,31 +28,31 @@ export const productModules = [
   {
     name: "NOVA Agriculture / NeoAgro",
     product: "Agriculture",
-    status: "ready",
+    status: "preview",
     summary: "Agrivoltaic intelligence for crop health, water efficiency, energy coordination, and impact reporting.",
-    href: "http://localhost:3000/dashboard",
+    href: "https://neoagro-git-fix-neoagro-demo-proven-0f0f19-neo-haven-urban-labs.vercel.app",
     pr: "",
   },
   {
     name: "NOVA Energy / NeoGrid",
     product: "Energy",
-    status: "ready",
+    status: "preview",
     summary: "Energy intelligence for solar production, battery operations, grid coordination, carbon impact, and operator-approved optimization.",
-    href: "http://localhost:8504",
+    href: "https://neogrid-git-fix-neogrid-demo-proven-a503a5-neo-haven-urban-labs.vercel.app",
     pr: "",
   },
   {
     name: "NOVA Infrastructure / NeoCell",
     product: "Infrastructure",
-    status: "ready",
+    status: "preview",
     summary: "AI-ready infrastructure readiness for gateways, sensors, power, water, edge compute, and field deployment planning.",
-    href: "http://localhost:8507",
+    href: "https://neocell-git-fix-neocell-demo-proven-82fc89-neo-haven-urban-labs.vercel.app",
     pr: "",
   },
   {
     name: "NOVA Core AI",
     product: "Shared AI services",
-    status: "integrated",
+    status: "scenario",
     summary: "Forecast, recommendation, simulation, and assistant explanation workflow visible.",
     href: "/nova-core",
     pr: "",
@@ -60,7 +60,7 @@ export const productModules = [
   {
     name: "Digital Twin",
     product: "Shared twin layer",
-    status: "integrated",
+    status: "scenario",
     summary: "Site context, asset graph, and operational chain remain available in the command center.",
     href: "/digital-twin",
     pr: "",
@@ -68,7 +68,7 @@ export const productModules = [
   {
     name: "Knowledge Graph",
     product: "Shared intelligence layer",
-    status: "integrated",
+    status: "scenario",
     summary: "Asset relationships and reasoning chain are visible for operator explanation.",
     href: "/knowledge-graph",
     pr: "",
@@ -76,7 +76,7 @@ export const productModules = [
   {
     name: "Impact Reports",
     product: "Measurement layer",
-    status: "integrated",
+    status: "scenario",
     summary: "Water, carbon, resilience, and yield-risk impact reporting remains available.",
     href: "/impact",
     pr: "",
@@ -138,12 +138,12 @@ export const infra = {
   pumpNodeHealth: "Nominal",
   readinessScore: 88,
   nodes: [
-    { id: "GW-01", type: "LoRaWAN Gateway", status: "online",   latency: 84 },
-    { id: "GW-02", type: "LoRaWAN Gateway", status: "online",   latency: 96 },
-    { id: "SN-12", type: "Soil Sensor",     status: "online",   latency: 210 },
-    { id: "SN-18", type: "Soil Sensor",     status: "degraded", latency: 612 },
-    { id: "PN-01", type: "Pump Node",       status: "online",   latency: 144 },
-    { id: "EM-03", type: "Energy Meter",    status: "online",   latency: 102 },
+    { id: "GW-01", type: "LoRaWAN Gateway", status: "demo",   latency: 84 },
+    { id: "GW-02", type: "LoRaWAN Gateway", status: "demo",   latency: 96 },
+    { id: "SN-12", type: "Soil Sensor",     status: "demo",   latency: 210 },
+    { id: "SN-18", type: "Soil Sensor",     status: "demo", latency: 612 },
+    { id: "PN-01", type: "Pump Node",       status: "demo",   latency: 144 },
+    { id: "EM-03", type: "Energy Meter",    status: "demo",   latency: 102 },
   ],
 };
 

@@ -11,15 +11,29 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+          token: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
-      - name: Install dependencies
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: apps/command-center/package-lock.json
+      - name: Install locked dependencies
         working-directory: apps/command-center
-        run: npm install
+        run: npm ci
+      - name: Test product preview links
+        working-directory: apps/command-center
+        run: npm test
       - name: Typecheck
         working-directory: apps/command-center
         run: npm run typecheck
+      - name: Audit production dependencies
+        working-directory: apps/command-center
+        run: npm audit --omit=dev --audit-level=high
+      - name: Report full dependency audit
+        working-directory: apps/command-center
+        run: npm audit --audit-level=high
       - name: Build
         working-directory: apps/command-center
         run: npm run build
