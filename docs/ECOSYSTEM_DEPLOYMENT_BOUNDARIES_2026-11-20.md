@@ -7,14 +7,14 @@ Purpose: distinguish the shared platform, product applications, consoles, public
 
 | Layer | Repository / service | Responsibility | Hosting evidence |
 |---|---|---|---|
-| Shared intelligence and governance | `nova-core` | Shared multi-tenant foundation, data model, governed evidence workflows, APIs and intelligence used by all NOVA modules | Core API Worker at `https://nova-core-api.neohaven.workers.dev`; this is not a Vercel website project |
-| NOVA OS application and operator/engineering surfaces | Private `NovaOS` repository; website repository currently also contains the reviewed `/os` and `/console` route implementation | Operator Workspace, Engineering Console, governed workflows and module navigation | A Vercel preview exists for the website feature branch. The production `nova-os` project is linked to the separate website repository, not the private `NovaOS` repository |
-| NeoAgro | `neoagro-platform` | Agriculture/agrivoltaics product UI and module | Separate Vercel project and READY production deployment |
-| NeoGrid | `neogrid-platform` | Energy product UI and module | Separate Vercel project and READY production deployment |
-| NeoCell | `neocell-platform` | Infrastructure/edge product UI and module | Separate Vercel project and READY production deployment |
-| NOVA Command Center | `NeoHaven-repo-root` | Ecosystem/customer-facing command center | Separate Vercel project and READY production deployment |
-| NOVA FieldOps | `nova-fieldops` | Field operations product surface | Separate Vercel project and READY production deployment |
-| Public marketing/presentation website | `neohaven-nova-os-website` | Public-facing website and presentation surface; not the entire product ecosystem | Separate Vercel project(s), including `nova-os` and `neohaven-nova-os-website` |
+| Shared intelligence and governance | `nova-core` | Shared multi-tenant foundation, data model, governed evidence workflows, APIs and intelligence used by all NOVA modules | Public Core API Worker at `https://nova-core-api.neohaven.workers.dev`; separate from Vercel frontends. Private tenant API and Access gateway have separate Cloudflare deployment prerequisites |
+| NOVA OS application and operator/engineering surfaces | Private `NovaOS` repository plus reviewed workspace routes in `neohaven-nova-os-website` | Operator Workspace, Engineering Console, governed workflows and module navigation | Separate Vercel project named `nova-os` is linked to the website repository, not the private `NovaOS` repo. Current latest deployment is a preview branch; old production alias remains a separate revision |
+| NeoAgro | `neoagro-platform` | Agriculture/agrivoltaics product UI and module | Separate Vercel project; latest observed deployment is READY but is a branch preview, not a production-target deployment |
+| NeoGrid | `neogrid-platform` | Energy product UI and module | Separate Vercel project; latest observed deployment is READY but is a branch preview, not a production-target deployment |
+| NeoCell | `neocell-platform` | Infrastructure/edge product UI and module | Separate Vercel project; latest observed deployment is READY but is a branch preview, not a production-target deployment |
+| NOVA Command Center | `NeoHaven-repo-root` | Ecosystem/customer-facing command center | Separate Vercel project; latest observed deployment is READY but is a branch preview, not a production-target deployment |
+| NOVA FieldOps | `nova-fieldops` | Field operations product surface | Separate Vercel project; latest observed deployment is READY and explicitly targets production |
+| Public marketing/presentation website | `neohaven-nova-os-website` | Public-facing website and presentation/navigation surface; not the entire product ecosystem | Separate Vercel project. It is not the source of truth for Core or product runtime status |
 
 NOVA Core is the shared platform foundation. NeoAgro, NeoGrid and NeoCell are connected product modules. NOVA OS is the application/operating layer that connects shared Core capabilities and module workflows. The website is only a presentation/application surface; it is not a substitute for Core or the product repositories.
 
@@ -22,17 +22,25 @@ NOVA Core is the shared platform foundation. NeoAgro, NeoGrid and NeoCell are co
 
 Team: `NeoHavenUrbanLabs`. The connected Vercel team reports the Hobby plan. No upgrade or paid resource is authorized by this inventory.
 
-| Vercel project | Linked Git repository | Latest production deployment record | Commit |
-|---|---|---|---|
-| `neoagro` | `neoagro-platform` | READY — [deployment](https://neoagro-1xo0l9yif-neo-haven-urban-labs.vercel.app) | `d86a367fb364d16e45a0debe921fc0128183dd08` |
-| `neogrid` | `neogrid-platform` | READY — [deployment](https://neogrid-k9now1nqc-neo-haven-urban-labs.vercel.app) | `e829e7124b424ddf0028b37affcf50d6c48e41ef` |
-| `neocell` | `neocell-platform` | READY — [deployment](https://neocell-kc1bqu90c-neo-haven-urban-labs.vercel.app) | `92803df9189e31418a326beedbd59a952b118181` |
-| `nova-command-center` | `NeoHaven-repo-root` | READY — [deployment](https://nova-command-center-4d3pi8wz7-neo-haven-urban-labs.vercel.app) | `efd90880c3eb3a5cadb47ae652caadf02b185983` |
-| `nova-fieldops` | `nova-fieldops` | READY — [deployment](https://nova-fieldops-o8d8wfuk5-neo-haven-urban-labs.vercel.app) | `92e2bc25f621bc1b23a7399afaecd646596f2f6d` |
-| `nova-os` | `neohaven-nova-os-website` | READY — [deployment](https://nova-ekeyzxn7g-neo-haven-urban-labs.vercel.app) | `2951ef88be4a285e6076f629c71a8e4e20aec667` |
-| `neohaven-nova-os-website` | `neohaven-nova-os-website` | Project linked; separate from product projects | Deployment history should be reviewed independently |
+The following rows come from the current Vercel project and deployment metadata read on 2026-11-20. **READY** means Vercel finished building that revision. `target: null` means the deployment metadata does not identify it as a production deployment; its alias is a branch-specific preview URL. Project domains listed in project settings must not be mistaken for aliases assigned to the latest deployment.
 
-A READY Vercel deployment proves the frontend deployment completed. It does not prove Core connectivity, live data, tenant isolation, authorization, end-to-end workflows, or operational readiness.
+| Vercel project | Linked Git repository | Latest observed deployment | Git ref / commit | Deployment target |
+|---|---|---|---|---|
+| `neoagro` | `neoagro-platform` | READY — [preview](https://neoagro-git-fix-neoagro-core-ingest-876540-neo-haven-urban-labs.vercel.app) | `fix/neoagro-core-ingestion-host-allowlist` / `8a376177026235c4d80aee7b619ae831c5effa8e` | Preview (`target: null`) |
+| `neogrid` | `neogrid-platform` | READY — [preview](https://neogrid-git-feat-neogrid-core-inges-f4b6b5-neo-haven-urban-labs.vercel.app) | `feat/neogrid-core-ingestion-current-provenance` / `72bdd31e68dbd3a9c06c6ec2b7900eb5e8cab1c7` | Preview (`target: null`) |
+| `neocell` | `neocell-platform` | READY — [preview](https://neocell-git-feat-neocell-core-inges-6c05bd-neo-haven-urban-labs.vercel.app) | `feat/neocell-core-ingestion-current-provenance` / `875abfc43240d872bcafd558fce464e78d5a1802` | Preview (`target: null`) |
+| `nova-command-center` | `NeoHaven-repo-root` | READY — [preview](https://nova-command-center-git-docs-ecosys-6e30c4-neo-haven-urban-labs.vercel.app) | `docs/ecosystem-deployment-boundaries-v1` / `48264e84d096c2bff16cf7f517ba25b238e47e12` | Preview (`target: null`) |
+| `nova-fieldops` | `nova-fieldops` | READY — [production deployment](https://nova-fieldops-o8d8wfuk5-neo-haven-urban-labs.vercel.app) | `main` / `92e2bc25f621bc1b23a7399afaecd646596f2f6d` | Production |
+| `nova-os` | `neohaven-nova-os-website` | READY — [preview](https://nova-os-git-docs-nova-os-gateway-en-d178c7-neo-haven-urban-labs.vercel.app) | `docs/nova-os-gateway-env-inventory-v1` / `13f2f030d2d936854a9ebc4401bcf86f4e84e97a` | Preview (`target: null`) |
+| `neohaven-nova-os-website` | `neohaven-nova-os-website` | READY — [preview](https://neohaven-nova-os-website-git-docs-n-c341db-neo-haven-urban-labs.vercel.app) | `docs/nova-os-gateway-env-inventory-v1` / `13f2f030d2d936854a9ebc4401bcf86f4e84e97a` | Preview (`target: null`) |
+
+Important production/preview distinction:
+
+- Vercel project metadata reports `live: false` for all seven projects in this inspection. Do not interpret that field alone as proof a deployment is broken; it is not a substitute for deployment target, domain alias and runtime checks.
+- Six latest deployments above have `target: null` and only branch-preview aliases. Only FieldOps' latest deployment explicitly has `target: production` and the three listed aliases.
+- The `nova-os` project has the domain `nova-os-pied.vercel.app` attached at project level, but the latest deployment inspected is a preview on the documentation branch. Prior audit evidence says the production alias was still on the older website-only `main` revision `2951ef88be4a285e6076f629c71a8e4e20aec667`. Do not infer that the current preview has replaced that production deployment.
+- The `nova-os` Vercel project is linked to the public website repository, not the private `NovaOS` repository. The private repository's CI and source code are separate evidence.
+- READY Vercel status proves only that Vercel completed a deployment. It does not prove Core connectivity, live data, tenant isolation, authorization, end-to-end workflows, or operational readiness.
 
 ## Environment metadata inventory
 
@@ -53,13 +61,18 @@ An empty Vercel variable list is not proof that an app is non-functional or has 
 - The private tenant API and Access-protected gateway are separate from the Vercel frontend projects.
 - The reviewed Core source describes a gateway-to-private-API Service Binding and signed identity envelope, but source code and local integration tests do not establish live Cloudflare deployment, Access policy, secrets, D1 binding/migration state, hostname routing or production parity.
 - The Core tenant-gateway deployment and staging evidence must be tracked in the Core/Cloudflare release record, not inferred from the website's Vercel variables.
+- NeoAgro's public Core API URL is not a substitute for the private tenant gateway or authenticated tenant data plane.
 - Do not replace the private gateway with the public Core API, expose the private API publicly, or infer that the entire ecosystem is blocked because the website has no gateway variable.
 
 ## NOVA OS consoles and preview
 
-The reviewed website feature preview exposes `/os` (Operator Workspace) and `/console` (Engineering Console). Those route checks establish the presence of the preview UI only. They do not make the public website the source of truth for the separate Core service or NeoAgro/NeoGrid/NeoCell product applications.
+The reviewed website feature preview exposes `/os` (Operator Workspace) and `/console` (Engineering Console). Those route checks establish the presence of the preview UI only. The current Vercel project named `nova-os` is connected to the website repository; it is not a Vercel deployment of the private `NovaOS` repository. Keep these three artifacts distinct:
 
-The older production `nova-os` deployment is linked to `neohaven-nova-os-website` at the commit listed above. It must not be confused with the newer feature-branch preview or the private `NovaOS` repository.
+1. The public marketing/presentation website.
+2. The website-hosted preview routes for Operator Workspace and Engineering Console.
+3. The private NOVA OS application repository and its own CI/release evidence.
+
+The older production `nova-os-pied.vercel.app` deployment was previously identified on an older `main` commit. The current deployment inspected for the `nova-os` Vercel project is a docs-branch preview and has not been proven to replace that production revision.
 
 ## Correct readiness model
 
