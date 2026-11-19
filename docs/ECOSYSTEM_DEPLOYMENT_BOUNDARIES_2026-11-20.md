@@ -129,3 +129,47 @@ This matrix distinguishes a tested client adapter from an activated integration.
 - Fifth: only after all gates pass, make a separately reviewed deployment decision for each product and for the ecosystem.
 
 No live provider credentials, device telemetry, customer data, database changes, Cloudflare secrets/policies, environment writes, deployments or paid resources were used for this source/PR audit.
+
+
+## Runtime source audit: demo data vs operational truth (2026-11-20)
+
+A direct read of the current `main` source in each repository found additional gaps that deployment status alone cannot reveal.
+
+### NeoAgro
+- `apps/api/main.py` identifies itself as a demo API and serves a hard-coded SolarHub demo site, KPI values, recommendations and forecast/impact figures. Its `/health` endpoint proves only process reachability.
+- `apps/web/lib/demo.ts` contains a second hard-coded fallback summary. It falls back silently when the API is unreachable.
+- `apps/web/lib/nova-core.ts` has hard-coded default site/telemetry values and a deterministic fallback insight; on API errors it returns that fallback with `connected: false`. Its API URL may select a public Core API URL, which must not be confused with the private tenant gateway.
+- Consequently, the current dashboard must be presented as a demo scenario unless a separately authorized, authenticated, tenant-scoped data path is verified. The demo API and fallback values are not field telemetry or measured impact.
+
+### NeoGrid
+- `apps/web/src/services/neogrid-api.ts` calls a configurable dashboard endpoint and returns `status: "fallback"` with `data: null` on failure. The service layer itself does not establish Core tenant identity, source provenance or authorized ingestion.
+- `api/openapi_neogrid_v1.yaml` describes site, energy asset, production, battery, grid, forecast, optimization and recommendation routes, but this specification alone is not evidence that those endpoints are implemented or secured.
+- Do not interpret a frontend's API connection status as evidence that energy measurements are authenticated, fresh or mapped to Core-owned assets.
+
+### NeoCell
+- The current default-branch README describes product scope and workflow, while `api/openapi_neocell_v1.yaml` describes deployment, module, gateway, sensor-node, maintenance and digital-twin routes.
+- The OpenAPI document is a contract outline, not proof of running endpoints, authenticated device identity, telemetry, calibration or a live digital-twin sync. Those runtime facts remain unverified.
+
+### NOVA FieldOps
+- `src/routes/mission-review.tsx` renders fixed sample mission steps, assumptions, a named rover, a specific sunset time and explicit stale/missing-data warnings. These are scenario fixtures, not a live mission from a connected field site.
+- `src/routes/safety-validator.tsx` renders the imported static `safetyChecks` array. It does not fetch current weather, geofences, terrain, battery, robot state or Core governance evidence in this route.
+- The mission review's Approve and Request changes controls are plain buttons in the inspected source; no action handlers or durable approval workflow are wired there.
+- FieldOps documentation correctly states that physical execution is disabled and human approval is required. Keep that restriction; do not describe this preview as an integrated robot control system.
+
+### NOVA Command Center
+- `apps/command-center/data/mockData.ts` is explicitly scenario data and contains a fixed site, timestamp, service online/degraded statuses, KPI readings, field zones, energy curves, infrastructure node states, recommendations and impact values.
+- `NovaCorePanel.tsx`, `NeoAgroPanel.tsx`, `NeoGridPanel.tsx` and `NeoCellPanel.tsx` render that static scenario data rather than querying NOVA Core or the linked product APIs.
+- `ProductStatusPanel.tsx` labels module cards as ready/integrated and describes links as ready product modules, while the data source is mock data. Its product links in `mockData.ts` include localhost addresses. This is a presentation inconsistency: localhost links do not navigate external visitors to deployed product applications, and ready/integrated labels can be mistaken for live integration.
+- The Command Center README explicitly says it renders operational preview data when product services are offline. It must therefore be treated as a scenario/presentation dashboard, not a live operational command system, until runtime API adapters, provenance and authorization are implemented and verified.
+
+### Required correction backlog
+
+1. Add a persistent, unmistakable **DEMO / SCENARIO DATA** indicator to Command Center, NeoAgro fallback/API demo mode, and FieldOps sample mission views. Include source, freshness and mode labels on each data surface, not only in documentation.
+2. Replace Command Center localhost product links with the verified deployed product URLs or clearly label local-only developer links; verify every destination before release.
+3. Change Command Center status labels so static `online`, `ready` and `integrated` mock values cannot be presented as live service health or integration evidence.
+4. Wire each product through server-side, tenant-authorized adapters to the private Core gateway. Do not send static demo/fallback fixtures as observations.
+5. Implement FieldOps approval as a real durable, actor-bound, scope-checked workflow before presenting it as a functioning approval control. Until then make controls clearly demonstrative/disabled.
+6. Add contract tests for missing, stale, unverified, revoked and cross-tenant data; preserve unknown states and never fabricate health or impact.
+7. Reassess product-by-product only after deployed revision, authenticated data path, source provenance, role scope, recovery and two-tenant isolation are demonstrated.
+
+These are source-code observations from the named default-branch files. No live service API, customer tenant, device, robot, database, provider account, secrets or production data was accessed. The findings do not establish that a particular deployment is serving the exact default-branch revision inspected.
