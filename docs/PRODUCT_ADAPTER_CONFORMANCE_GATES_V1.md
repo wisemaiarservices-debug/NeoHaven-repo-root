@@ -103,3 +103,43 @@ The code-search connector returned no indexed matches for the helper symbol or o
 This document does not establish that the adapters are deployed, that a live private gateway or Access policy exists, that credentials are provisioned, that remote D1 migrations have run, or that any real source has been verified. It does not authorize production or staging ingestion.
 
 No live API calls, customer data, secrets, Cloudflare configuration, Supabase policies, D1 migrations, deployments, paid resources, or billing changes were used or changed for this review.
+
+## Default-branch producer and runtime audit (2026-11-20)
+
+A recursive Git tree inspection of the current `main` branches for NeoAgro, NeoGrid and NeoCell completed without truncated tree results. The API/runtime files below were then read directly. This is a source-tree audit, not a live service test.
+
+### NeoAgro
+
+- `apps/api/main.py` defines only a demo API: `/health`, `/api/v1/sites/demo`, `/api/v1/dashboard/summary`, and `/api/v1/recommendations/run`.
+- Its `demo_site()`, `demo_kpis()`, and `demo_recommendations()` functions construct fixed SolarHub identifiers, values and recommendations in code. No sensor, device, gateway, acquisition, registry or telemetry-ingestion producer appears in this API file.
+- `apps/web/lib/nova-core.ts` defines a fixed `defaultState` and a deterministic `fallbackInsight`. Its client posts to the configured public Core API endpoints when configured, but on any request failure returns the local fallback with `connected: false`. This fallback is not a telemetry source and must not be forwarded to the shared observation ingestion helper.
+- The reviewed recursive tree contains no separate scheduler, telemetry collector, device connector or acquisition job.
+
+### NeoGrid
+
+- `service/main.py` defines `EnergyState` with fixed SolarHub defaults (including solar, battery, load, grid import, carbon intensity, irrigation load and temperature). `GET /api/v1/dashboard/summary` instantiates that default state; forecast, optimization and recommendation outputs are calculated from those defaults.
+- Its tests validate deterministic calculations and operator-review status; they do not exercise a physical telemetry producer, source registry, device identity, or Core observation submission.
+- `web/src/services/neogrid-api.ts` calls the summary endpoint and returns `fallback` with `data: null` on failure. The main UI also imports local `neogrid-data` fixtures. Neither path is evidence of a connected energy asset.
+- The OpenAPI document describes site, asset and telemetry routes, but the inspected `service/main.py` implementation exposes only health, dashboard summary, forecast, optimization and recommendation routes. The specification is not proof those additional routes exist.
+- The recursive default-branch tree contains no separate telemetry polling worker, scheduler, device connector or acquisition job.
+
+### NeoCell
+
+- `runtime/app.py` defines `CellState` with fixed SolarHub defaults for gateway, sensor, battery, latency, temperature, dust, pump and water-node values. The dashboard endpoint instantiates that default state; analysis, plan and recommendation outputs are derived from it.
+- Its tests validate deterministic scoring and recommendation behavior, not live device identity, telemetry acquisition, calibration, source registration, or Core observation submission.
+- `web/src/main.tsx` defines readiness, gateway, sensor, battery, latency, pump and alarm values locally. Its `/health` request only changes the API-reachability label; it does not fetch or validate device telemetry.
+- The OpenAPI document describes deployments, gateways, sensor nodes and twin sync, but the inspected runtime implementation exposes only health, dashboard summary, readiness analysis, plans and recommendations. The specification is not proof those other routes exist.
+- The recursive default-branch tree contains no separate edge collector, gateway polling worker, scheduler or device acquisition job.
+
+### Bounded conclusion and implementation decision
+
+The inspected default-branch product APIs are deterministic demo services, not demonstrated acquisition services. Their fixed default states and local fixtures must not be wrapped as observations or submitted to NOVA Core as if they were measured field data. The adapter PRs remain transport-layer work only.
+
+No producer should be invented merely to create an ingestion call site. The next implementation prerequisite is a product-specific, independently reviewable source-acquisition contract for each domain:
+- NeoAgro: registered field/sensor source, asset/site scope, measurement method, calibration and actual observation timestamp/unit/quality.
+- NeoGrid: registered meter/inverter/battery/grid source, asset/site scope, measurement method, meter units and actual observation timestamp/quality.
+- NeoCell: registered gateway/device/node source, hardware identity, site/asset scope, metric units, calibration and actual observation timestamp/quality.
+
+Until such a producer and its source registry path exist, keep ingestion disabled. Demo fixtures may be used for local contract tests only when clearly synthetic and must never be represented as real observations. The next code change should be made against a real producer after one is found or explicitly designed and reviewed; it must not be a fabricated adapter invocation.
+
+This audit did not call the live product APIs, query devices, access secrets, change environments, activate ingestion, provision infrastructure, run migrations, deploy, or incur paid usage.
