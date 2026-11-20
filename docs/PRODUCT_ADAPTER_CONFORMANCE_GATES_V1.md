@@ -74,6 +74,30 @@ Core PR #305 corrects the design/runbook wording to require verified sources and
 
 These references are draft implementation work and must be reviewed in dependency order. Do not merge a stacked PR independently of its required base.
 
+
+
+## Product workflow call-site audit (2026-11-20)
+
+The transport-helper PRs are not themselves proof that a product workflow invokes the helpers. The reviewed adapter PR changed-file inventories are:
+
+- NeoAgro PR #18: helper, fixture, helper tests, environment example, CI and adapter documentation.
+- NeoGrid PR #6: helper, fixture, helper tests, environment example and adapter documentation.
+- NeoCell PR #7: helper, fixture, helper tests, environment example and adapter documentation.
+
+None of these adapter PR diffs includes a product workflow, telemetry acquisition job, device/site registration flow, scheduler, or API route that calls `submit_observation`. This bounded finding means **call-site wiring is not established by these PRs**. It does not prove that no call site exists elsewhere in the full repositories; a complete repository-wide search and review of each current default branch and relevant feature branch is still required.
+
+Until that review identifies and tests a real server-side producer:
+- Treat each helper as an isolated, opt-in transport capability, not an active product integration.
+- Do not set `NOVA_CORE_INGESTION_ENABLED=true` in any environment.
+- Do not invent source IDs, tenant/site IDs, sensor identities, or calibration values to make a call succeed.
+- A future call site must obtain source identity from the governed source registry, derive module identity from its product server configuration, validate the product-specific acquisition record, and invoke the helper only from a trusted server process.
+- The call site must preserve the real measurement's timestamp, unit, method, quality flags and provenance; missing or uncertain fields remain explicitly unknown and must fail contract validation where required.
+- Add call-site tests proving no network request occurs for disabled configuration, malformed/unknown provenance, or invalid contract data; prove that credentials and tenant authority are never accepted from browser input.
+- Test that a Core 403 for an unverified, revoked, inactive, wrong-module or cross-tenant source is surfaced as a denied ingestion result, never converted into a successful local status or demo fallback.
+
+The code-search connector returned no indexed matches for the helper symbol or opt-in variable during this review. Because repository code-search indexing may be incomplete and branch-scoped, that result is not treated as proof of absence. The changed-file inventory above is the concrete evidence for the bounded conclusion.
+
+
 ## Explicit non-claims and activation hold
 
 This document does not establish that the adapters are deployed, that a live private gateway or Access policy exists, that credentials are provisioned, that remote D1 migrations have run, or that any real source has been verified. It does not authorize production or staging ingestion.
