@@ -122,3 +122,27 @@ These zero counts describe this repository review/intake package only. They do n
 This register is documentation only. Completing it does not authorize repository runtime changes, credential provisioning, environment changes, source registration, database migrations, Cloudflare/Supabase changes, live API/device access, staging or production ingestion, deployments, paid resources, or billing changes. Those actions require their own verified prerequisites and explicit authorization.
 
 **Next decision:** an accountable product/source owner supplies the actual inventory and controlled evidence references. If no source owner or real source can be evidenced, leave the product blocked and do not build a fabricated producer.
+
+
+## 8. NOVA Core contract alignment (source-code review)
+
+The reviewed authenticated ingestion handler resolves ownership from Core's database before persistence. Its source lookup is keyed by the submitted `source_id` but verifies the returned source record against Core-owned fields including source ID, tenant, site, product module, and source verification state. The reviewed asset lookup likewise checks asset ID, tenant, site, and asset status. The accepted observation contract carries `site_id`, optional `asset_id`, fixed product `module`, `source_id`, metric, value, unit, event timestamp, provenance, quality flags, and idempotency key. Persisted tenant ownership and observation verification are server-assigned; the worker test asserts the accepted observation is persisted as `unverified`.
+
+Practical intake-to-contract mapping:
+
+| Inventory evidence | Core ingestion role | Rule |
+|---|---|---|
+| Stable source identity | `source_id` lookup | Must refer to an existing Core source record; a device serial alone is not a Core registration |
+| Organization / tenant ownership | Core-resolved `tenant_id` | Never accept tenant authority from browser or product payload |
+| Site association | `site_id` plus source ownership check | Must match the registered source's allowed site scope |
+| Asset association | optional `asset_id` plus tenant/site check | Omit only when the source/measurement is genuinely site-scoped and Core permits it |
+| Product identity | fixed server-side `module` | Product caller cannot select another module |
+| Metric and units | `metric`, `value`, `unit` | Must be supported by the source's independently reviewed capabilities and normalization contract |
+| Event time | `observed_at` | Preserve source measurement time; do not replace with request time |
+| Provenance / quality | `provenance`, `quality_flags` | Must describe acquisition, not generated UI or demo values |
+| Retry identity | `idempotency_key` | Stable across retries for the same source event |
+| Source trust | Core source verification state | Source must pass Core's active/verified and scope checks; new persisted observation remains `unverified` |
+
+This review confirms the ingestion handler's source/asset ownership checks and observation envelope; it does **not** establish the complete source-registration administrative workflow, all registry columns, or a live registry state. Do not treat this mapping as a substitute for the ordered migration review or Core's authoritative schema. The inventory's owner, model, firmware, protocol, calibration, license, and evidence-reference fields are acquisition/governance metadata and are not asserted to be columns in the observation envelope.
+
+**Implementation consequence:** source inventory review must produce a stable Core source record and independently approved metric/scope evidence before a producer can construct an observation. The product must not invent `source_id`, `tenant_id`, or `site_id` values to make the adapter accept a payload.
